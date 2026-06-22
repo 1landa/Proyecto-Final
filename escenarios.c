@@ -21,8 +21,9 @@ int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
         fwrite(&nuevo,sizeof(Escenario),1,archivo);
         fclose(archivo);
         printf("Escenario agregado");
-        arreglo[validos]=nuevo;   
-        return validos++;
+        arreglo[validos]=nuevo; 
+        validos++;  
+        return validos;
     }
 }
 
