@@ -5,8 +5,7 @@ typedef struct {
     char nombre[50];
     char genero[30];
 } Artista;
-
-void CargaArtista();
-void MostrarArtista();
-void OrdenarArtista();
+int CargaArtista(Artista arreglo[], int validos, int dimension);
+void MostrarArtista(Artista arreglo[], int validos);
+void OrdenarArtista(Artista arreglo[], int validos);
 #endif

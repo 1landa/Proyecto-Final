@@ -3,67 +3,67 @@
 #include <string.h>
 #include "artistas.h"
 
-void CargaArtista() {
-    FILE *archivo = fopen("artistas.dat", "ab");
+int CargaArtista(Artista arreglo[], int validos, int dimension) {
+    if (validos == dimension){
+        printf("Limite maximo ");
+        return validos;
+    }
+        FILE *archivo = fopen("artistas.dat", "ab");
+
     if (archivo !=NULL) {
         Artista nuevo;
         printf("Ingrese el ID del nuevo artista");
         scanf("%d",&nuevo.id);
         while (getchar() != '\n');
         printf("Ingrese el nombre del nuevo artista");
-        fgets(nuevo.nombre, sizeof(nuevo.nombre), stdin);        printf("Ingrese el genero musical");
+        fgets(nuevo.nombre, sizeof(nuevo.nombre), stdin);
+        nuevo.nombre[strcspn(nuevo.nombre, "\n")] = '\0';
         printf("Ingrese el genero musical");
         fgets(nuevo.genero, sizeof(nuevo.genero), stdin);
+        nuevo.genero[strcspn(nuevo.genero, "\n")] = '\0';
         fwrite(&nuevo,sizeof(Artista),1,archivo);
         fclose(archivo);
         printf("Artista nuevo agregado satisfactoriamente");
+        arreglo[validos]=nuevo;
+        validos++;
 
-    } 
-}
-void MostrarArtista() {
-    FILE *archivo = fopen("artistas.dat", "rb");
-    if (archivo != NULL) {
-        Artista artista;
-        printf("Listado de artistas:\n");
-        while (fread(&artista, sizeof(Artista),1,archivo)==1){
-            printf("ID:%d | Artista: %s | Genero: %s\n", artista.id,artista.nombre,artista.genero);
-
-        }
-    fclose(archivo);
-    } else {
-        printf("No se pudo abrir el archivo de artistas.\n");
     }
+    return validos;
 }
-void OrdenarArtista() {
-    FILE *archivo=fopen("artistas.dat","rb");
-    if (archivo !=NULL){
-        Artista lista[100];
-        int cantidad=0;
-        while (fread(&lista[cantidad],sizeof(Artista),1,archivo)==1){
-            cantidad++;
-        }
-        fclose(archivo);
-        if (cantidad>0){
-            int menor;
-            Artista aux;
-            for (int i=0; i<cantidad-1;i++){
-                menor=i;
-                for (int j=i+1; j<cantidad; j++){
-                    if (strcmp(lista[j].nombre,lista[menor].nombre)<0){
-                        menor=j;
-                    }
-                }
-                aux=lista[i];
-                lista[i]=lista[menor];
-                lista[menor]=aux;
+
+void OrdenarArtista(Artista arreglo[], int validos) {
+    if (validos<1){
+        printf("No hay artistas para ordenar");
+        return;
+    }
+    int menor;
+    Artista aux;    
+    for (int i=0; i<validos-1; i++) {
+        menor=i;
+        for (int j = i + 1; j < validos; j++) {
+            if (strcmp(arreglo[j].nombre, arreglo[menor].nombre) < 0) {
+                menor = j;
             }
-
-
-printf("Artistas ordenados por nombre:\n");
-    for (int i=0; i< cantidad; i++){
-        printf("ID:%d | Artista: %s | Genero: %s\n", lista[i].id, lista[i].nombre, lista[i].genero);        }
+        }
+        if (menor != i) {
+            aux = arreglo[i];
+            arreglo[i] = arreglo[menor];
+            arreglo[menor] = aux;
+        }
     }
-    
-    }
+    printf("Los artistas fueron ordenados alfabeticamente\n");
 }
 
+void MostrarArtista(Artista arreglo[], int validos) {
+    if (validos == 0) {
+        printf("No hay artistas para mostrar\n");
+        return;
+    }
+    printf("Listado de artistas\n");
+    for (int i=0; i<validos; i++) {
+        printf("ID: %d\n", arreglo[i].id);
+        printf("Nombre: %s\n", arreglo[i].nombre);
+        printf("Genero: %s\n", arreglo[i].genero);
+        printf("══════════════════════\n");
+    }
+}
