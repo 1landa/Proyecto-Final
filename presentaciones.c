@@ -30,9 +30,10 @@ int CargaPresentacion(Presentacion arreglo[], int validos, int dimension) {
         fwrite(&nuevo,sizeof(Presentacion),1,archivo);
         fclose(archivo);
         printf("Presentacion agregada\n");
-        arreglo[validos]=nuevo;   
+        arreglo[validos]=nuevo;
+        validos++;
+        return validos;   
     }
-    return validos + 1;
 }
 
 void MostrarPresentacion(Presentacion arreglo[], int validos) {
