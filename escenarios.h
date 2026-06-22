@@ -7,7 +7,6 @@ typedef struct {
 } Escenario;
 
 int CargaEscenario(Escenario arreglo[], int validos, int dimension);
-void OrdenarEscenario(Escenario arreglo[], int validos);
 void MostrarEscenario(Escenario arreglo[], int validos);
 
 #endif

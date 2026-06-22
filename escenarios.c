@@ -13,6 +13,7 @@ int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
         Escenario nuevo;
         printf("Ingrese el ID del nuevo escenario: ");
         scanf("%d",&nuevo.id);
+
         while (getchar() != '\n');
         printf("Ingrese el nombre del nuevo escenario: ");
         fgets(nuevo.nombre, sizeof(nuevo.nombre), stdin);
@@ -21,6 +22,7 @@ int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
         fclose(archivo);
         printf("Escenario agregado");
         arreglo[validos]=nuevo;   
+        return validos++;
     }
 }
 
