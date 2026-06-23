@@ -67,3 +67,131 @@ void MostrarArtista(Artista arreglo[], int validos) {
         printf("══════════════════════\n");
     }
 }
+   int BuscarArtistaPorId(Artista arreglo[], int validos, int id)
+{
+    for(int i = 0; i < validos; i++)
+    {
+        if(arreglo[i].id == id)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+void ModificarArtista(Artista arreglo[], int validos)
+{
+    int id;
+    int pos;
+
+    printf("Ingrese el ID del artista a modificar: ");
+    scanf("%d", &id);
+    while(getchar() != '\n');
+
+    pos = BuscarArtistaPorId(arreglo, validos, id);
+
+    if(pos != -1)
+    {
+        printf("Ingrese el nuevo nombre: ");
+        fgets(arreglo[pos].nombre,
+              sizeof(arreglo[pos].nombre),
+              stdin);
+
+        arreglo[pos].nombre[
+            strcspn(arreglo[pos].nombre, "\n")
+        ] = '\0';
+
+        printf("Ingrese el nuevo genero: ");
+        fgets(arreglo[pos].genero,
+              sizeof(arreglo[pos].genero),
+              stdin);
+
+        arreglo[pos].genero[
+            strcspn(arreglo[pos].genero, "\n")
+        ] = '\0';
+
+        printf("Artista modificado correctamente\n");
+    }
+    else
+    {
+        printf("No existe un artista con ese ID\n");
+    }
+}
+int BajaArtista(Artista arreglo[], int validos)
+{
+    int id;
+    int pos;
+
+    printf("Ingrese el ID del artista a eliminar: ");
+    scanf("%d", &id);
+
+    pos = BuscarArtistaPorId(arreglo, validos, id);
+
+    if(pos != -1)
+    {
+        for(int i = pos; i < validos - 1; i++)
+        {
+            arreglo[i] = arreglo[i + 1];
+        }
+
+        validos--;
+
+        printf("Artista eliminado correctamente\n");
+    }
+    else
+    {
+        printf("No existe un artista con ese ID\n");
+    }
+
+    return validos;
+}
+}
+void menuArtistas(
+    Artista artistas[],
+    int *validosArtistas,
+    int dimension)
+{
+    int opcion;
+
+    do
+    {
+        printf("\n1-Alta");
+        printf("\n2-Modificar");
+        printf("\n3-Baja");
+        printf("\n4-Mostrar");
+        printf("\n0-Volver");
+
+        scanf("%d",&opcion);
+
+        switch(opcion)
+        {
+            case 1:
+                *validosArtistas =
+                    CargaArtista(
+                        artistas,
+                        *validosArtistas,
+                        dimension);
+                break;
+
+            case 2:
+                ModificarArtista(
+                    artistas,
+                    *validosArtistas);
+                break;
+
+            case 3:
+                *validosArtistas =
+                    BajaArtista(
+                        artistas,
+                        *validosArtistas);
+                break;
+
+            case 4:
+                MostrarArtista(
+                    artistas,
+                    *validosArtistas);
+                break;
+        }
+
+    }while(opcion != 0);
+}
