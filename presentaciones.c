@@ -253,7 +253,6 @@ void MostrarPresentacionesPorEscenario(
     Presentacion arreglo[],
     int validos,
     int idEscenario);
-{
     int encontrado = 0;
 
     for(int i = 0; i < validos; i++)

@@ -145,7 +145,6 @@ int BajaArtista(Artista arreglo[], int validos)
 
     return validos;
 }
-}
 void menuArtistas(
     Artista artistas[],
     int *validosArtistas,
