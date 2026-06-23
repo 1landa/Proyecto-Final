@@ -62,3 +62,75 @@ void MostrarEscenario(Escenario arreglo[], int validos) {
         printf("══════════════════════\n");
     }
 }
+int BuscarEscenarioPorId(Escenario arreglo[], int validos, int id)
+{
+    for(int i = 0; i < validos; i++)
+    {
+        if(arreglo[i].id == id)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+void ModificarEscenario(Escenario arreglo[], int validos)
+{
+    int id;
+    int pos;
+
+    printf("Ingrese el ID del escenario a modificar: ");
+    scanf("%d", &id);
+    while(getchar() != '\n');
+
+    pos = BuscarEscenarioPorId(arreglo, validos, id);
+
+    if(pos != -1)
+    {
+        printf("Ingrese el nuevo nombre: ");
+
+        fgets(arreglo[pos].nombre,
+              sizeof(arreglo[pos].nombre),
+              stdin);
+
+        arreglo[pos].nombre[
+            strcspn(arreglo[pos].nombre, "\n")
+        ] = '\0';
+
+        printf("Escenario modificado correctamente\n");
+    }
+    else
+    {
+        printf("No existe un escenario con ese ID\n");
+    }
+}
+
+int BajaEscenario(Escenario arreglo[], int validos)
+{
+    int id;
+    int pos;
+
+    printf("Ingrese el ID del escenario a eliminar: ");
+    scanf("%d", &id);
+
+    pos = BuscarEscenarioPorId(arreglo, validos, id);
+
+    if(pos != -1)
+    {
+        for(int i = pos; i < validos - 1; i++)
+        {
+            arreglo[i] = arreglo[i + 1];
+        }
+
+        validos--;
+
+        printf("Escenario eliminado correctamente\n");
+    }
+    else
+    {
+        printf("No existe un escenario con ese ID\n");
+    }
+
+    return validos;
+}
