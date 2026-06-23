@@ -4,9 +4,7 @@
 #include "artistas.h"
 #include "escenarios.h"
 #include "presentaciones.h"
-
-#define DIM 100gcc main.c artistas.c escenarios.c presentaciones.c -o programa
-
+#define DIM 100
 int main()
 {
     int opcion;
