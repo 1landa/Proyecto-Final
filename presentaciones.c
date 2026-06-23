@@ -245,34 +245,20 @@ int ValidarPresentacion(
     return 1;
 }
 
-void MostrarPresentacionesPorEscenario(
-    Presentacion arreglo[],
-    int validos,
-    int idEscenario);
-    void MostrarPresentacionesPorEscenario(
-    Presentacion arreglo[],
-    int validos,
-    int idEscenario);
+void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int idEscenario) {
     int encontrado = 0;
 
-    for(int i = 0; i < validos; i++)
-    {
-        if(arreglo[i].idEscenario == idEscenario)
-        {
+    for(int i = 0; i < validos; i++) {
+        if(arreglo[i].idEscenario == idEscenario) {
             printf("ID: %d\n", arreglo[i].id);
             printf("Artista: %d\n", arreglo[i].idArtista);
-            printf("Horario: %02d:%02d\n",
-                   arreglo[i].horario.hora,
-                   arreglo[i].horario.minutos);
-
+            printf("Horario: %02d:%02d\n", arreglo[i].horario.hora, arreglo[i].horario.minutos);
             printf("--------------------\n");
-
             encontrado = 1;
         }
     }
 
-    if(!encontrado)
-    {
+    if(!encontrado) {
         printf("No hay presentaciones para ese escenario\n");
     }
 }
