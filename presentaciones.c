@@ -9,7 +9,8 @@ int CargaPresentacion(Presentacion arreglo[], int validos, int dimension) {
         return validos;
     }
     FILE *archivo = fopen("presentaciones.dat", "ab");
-    if (archivo!=NULL){
+    if (archivo!=NULL)
+    {
         Presentacion nuevo;
         printf("Ingrese el ID de la nueva presentacion: ");
         scanf("%d",&nuevo.id);
@@ -43,59 +44,58 @@ void MostrarPresentacion(Presentacion arreglo[], int validos) {
     }
     printf("Listado de presentaciones\n");
     for (int i=0; i<validos; i++) {
-        printf("ID: %d\n", arreglo[i].id);
-        printf("ID Artista: %d\n", arreglo[i].idArtista);
-        printf("ID Escenario: %d\n", arreglo[i].idEscenario);
-        printf("Horario: %02d:%02d\n", arreglo[i].horario.hora, arreglo[i].horario.minutos);
-        printf("Duracion: %02d:%02d\n", arreglo[i].duracion.horas, arreglo[i].duracion.minutos);
-        printf("══════════════════════\n");
+        printf("╔══════════════════════════════╗\n");
+        printf("╠ID:                           ║%d\n", arreglo[i].id);
+        printf("╠══════════════════════════════╣\n");
+        printf("╠ID Artista:                   ║%d\n", arreglo[i].idArtista);
+        printf("╠══════════════════════════════╣\n");
+        printf("╠ID Escenario:                 ║%d\n", arreglo[i].idEscenario); 
+        printf("╠══════════════════════════════╣\n");
+        printf("╠Horario:                      ║%02d:%02d\n", arreglo[i].horario.hora, arreglo[i].horario.minutos);
+        printf("╠══════════════════════════════╣\n");
+        printf("╠Duracion:                     ║%02d:%02d\n", arreglo[i].duracion.horas, arreglo[i].duracion.minutos);
+        printf("╚══════════════════════════════╝\n");
+
     }
 }
 int BuscarPresentacionPorId(Presentacion arreglo[], int validos, int id)
 {
     for(int i = 0; i < validos; i++)
     {
-        if(arreglo[i].id == id)
-        {
-            return i;
+    if(arreglo[i].id == id)
+    {
+         return i;
         }
     }
-
     return -1;
 }
 void ModificarPresentacion(Presentacion arreglo[], int validos)
 {
     int id;
     int pos;
-
     printf("Ingrese el ID de la presentacion a modificar: ");
     scanf("%d", &id);
-
     pos = BuscarPresentacionPorId(arreglo, validos, id);
-
     if(pos != -1)
     {
         printf("Nuevo ID de artista: ");
         scanf("%d", &arreglo[pos].idArtista);
-
         printf("Nuevo ID de escenario: ");
         scanf("%d", &arreglo[pos].idEscenario);
-
         printf("Nueva hora y minutos de inicio: ");
         scanf("%d %d",
-              &arreglo[pos].horario.hora,
-              &arreglo[pos].horario.minutos);
-
+        &arreglo[pos].horario.hora,
+        &arreglo[pos].horario.minutos);
         printf("Nueva duracion (horas minutos): ");
         scanf("%d %d",
-              &arreglo[pos].duracion.horas,
-              &arreglo[pos].duracion.minutos);
+        &arreglo[pos].duracion.horas,
+        &arreglo[pos].duracion.minutos);
 
-        printf("Presentacion modificada correctamente\n");
+    printf("Presentacion modificada correctamente\n");
     }
     else
     {
-        printf("No existe una presentacion con ese ID\n");
+    printf("No existe una presentacion con ese ID\n");
     }
 }
 int BajaPresentacion(Presentacion arreglo[], int validos)
@@ -103,7 +103,7 @@ int BajaPresentacion(Presentacion arreglo[], int validos)
     int id;
     int pos;
 
-    printf("Ingrese el ID de la presentacion a eliminar: ");
+    printf("Ingrese el ID de la presentacion a eliminar");
     scanf("%d", &id);
 
     pos = BuscarPresentacionPorId(arreglo, validos, id);
@@ -112,18 +112,15 @@ int BajaPresentacion(Presentacion arreglo[], int validos)
     {
         for(int i = pos; i < validos - 1; i++)
         {
-            arreglo[i] = arreglo[i + 1];
+        arreglo[i] = arreglo[i + 1];
         }
-
         validos--;
-
         printf("Presentacion eliminada correctamente\n");
     }
     else
     {
         printf("No existe una presentacion con ese ID\n");
     }
-
     return validos;
 }
 void MostrarPresentacionesPorArtista(
@@ -137,37 +134,35 @@ void MostrarPresentacionesPorArtista(
     {
         if(arreglo[i].idArtista == idArtista)
         {
-            printf("ID: %d\n", arreglo[i].id);
-            printf("Escenario: %d\n", arreglo[i].idEscenario);
-            printf("Horario: %02d:%02d\n",
-                   arreglo[i].horario.hora,
-                   arreglo[i].horario.minutos);
-
-            printf("--------------------\n");
-
+        printf("╔══════════════════════════════╗\n");
+        printf("╠ID:                           ║%d\n", arreglo[i].id);
+        printf("╠══════════════════════════════╣\n");
+        printf("╠Escenario:                    ║%d\n", arreglo[i].idEscenario); 
+        printf("╠══════════════════════════════╣\n");
+        printf("╠Horario:                      ║%02d:%02d\n", arreglo[i].horario.hora, arreglo[i].horario.minutos);
+        printf("╚══════════════════════════════╝\n");
+            arreglo[i].horario.hora,
+            arreglo[i].horario.minutos);
             encontrado = 1;
         }
     }
 
     if(!encontrado)
     {
-        printf("No hay presentaciones para ese artista\n");
+    printf("No hay presentaciones para ese artista\n");
     }
 }
 void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int idEscenario) {
     int encontrado = 0;
-
     for(int i = 0; i < validos; i++) {
         if(arreglo[i].idEscenario == idEscenario) {
-            printf("ID: %d\n", arreglo[i].id);
-            printf("Artista: %d\n", arreglo[i].idArtista);
-            printf("Horario: %02d:%02d\n", arreglo[i].horario.hora, arreglo[i].horario.minutos);
-            printf("--------------------\n");
+        printf("╔══════════════════════════════╗\n");
+        printf("╠ID:                           ║%d\n", arreglo[i].id);
+        printf("╠══════════════════════════════╣\n");
+        printf("╠Artista:                      ║%d\n", arreglo[i].idArtista);
+        printf("╠══════════════════════════════╣\n");
+        printf("╠Horario:                      ║%02d:%02d\n", arreglo[i].horario.hora, arreglo[i].horario.minutos);
+        printf("╚══════════════════════════════╝\n");
             encontrado = 1;
         }
     }
-
-    if(!encontrado) {
-        printf("No hay presentaciones para ese escenario\n");
-    }
-}
