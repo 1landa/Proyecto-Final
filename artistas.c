@@ -9,7 +9,6 @@ int CargaArtista(Artista arreglo[], int validos, int dimension) {
         return validos;
     }
         FILE *archivo = fopen("artistas.dat", "ab");
-
     if (archivo !=NULL) {
         Artista nuevo;
         printf("Ingrese el ID del nuevo artista");
@@ -26,7 +25,6 @@ int CargaArtista(Artista arreglo[], int validos, int dimension) {
         printf("Artista nuevo agregado satisfactoriamente");
         arreglo[validos]=nuevo;
         validos++;
-
     }
     return validos;
 }
@@ -53,7 +51,6 @@ void OrdenarArtista(Artista arreglo[], int validos) {
     }
     printf("Los artistas fueron ordenados alfabeticamente\n");
 }
-
 void MostrarArtista(Artista arreglo[], int validos) {
     if (validos == 0) {
         printf("No hay artistas para mostrar\n");
@@ -61,10 +58,13 @@ void MostrarArtista(Artista arreglo[], int validos) {
     }
     printf("Listado de artistas\n");
     for (int i=0; i<validos; i++) {
-        printf("ID: %d\n", arreglo[i].id);
-        printf("Nombre: %s\n", arreglo[i].nombre);
-        printf("Genero: %s\n", arreglo[i].genero);
-        printf("══════════════════════\n");
+    printf("╔══════════════════════════════╗\n");
+    printf("╠ID:                           ║%d\n", arreglo[i].id);
+    printf("╠══════════════════════════════╣\n");
+    printf("╠Nombre:                       ║%s\n", arreglo[i].nombre);
+    printf("╠══════════════════════════════╣\n");
+    printf("╠Genero:                       ║%s\n", arreglo[i].genero);
+    printf("╚══════════════════════════════╝\n");
     }
 }
    int BuscarArtistaPorId(Artista arreglo[], int validos, int id)
@@ -76,7 +76,6 @@ void MostrarArtista(Artista arreglo[], int validos) {
             return i;
         }
     }
-
     return -1;
 }
 void ModificarArtista(Artista arreglo[], int validos)
@@ -121,28 +120,22 @@ int BajaArtista(Artista arreglo[], int validos)
 {
     int id;
     int pos;
-
     printf("Ingrese el ID del artista a eliminar: ");
     scanf("%d", &id);
-
     pos = BuscarArtistaPorId(arreglo, validos, id);
-
     if(pos != -1)
     {
         for(int i = pos; i < validos - 1; i++)
         {
             arreglo[i] = arreglo[i + 1];
         }
-
         validos--;
-
-        printf("Artista eliminado correctamente\n");
+        printf("Artista eliminado correctamente \n");
     }
     else
     {
-        printf("No existe un artista con ese ID\n");
+        printf("No existe un artista con ese ID \n");
     }
-
     return validos;
 }
 void menuArtistas(
@@ -151,46 +144,34 @@ void menuArtistas(
     int dimension)
 {
     int opcion;
-
     do
     {
-        printf("\n1-Alta");
-        printf("\n2-Modificar");
-        printf("\n3-Baja");
-        printf("\n4-Mostrar");
-        printf("\n0-Volver");
-
+        printf("╔══════════════════════════════╗\n");
+        printf("╠ 1-Alta                       ║\n");
+        printf("╠══════════════════════════════╣\n");
+        printf("╠ 2-Modificar                  ║\n");
+        printf("╠══════════════════════════════╣\n");
+        printf("╠ 3-Baja                       ║\n");
+        printf("╠══════════════════════════════╣\n");
+        printf("╠ 4-Mostrar                    ║\n");
+        printf("╠══════════════════════════════╣\n");
+        printf("╠ 0-Volver                     ║\n");
+        printf("╚══════════════════════════════╝\n");
         scanf("%d",&opcion);
-
         switch(opcion)
         {
             case 1:
-                *validosArtistas =
-                    CargaArtista(
-                        artistas,
-                        *validosArtistas,
-                        dimension);
+                *validosArtistas = CargaArtista(artistas, *validosArtistas, dimension);
                 break;
-
             case 2:
-                ModificarArtista(
-                    artistas,
-                    *validosArtistas);
+                ModificarArtista(artistas, *validosArtistas);
                 break;
-
             case 3:
-                *validosArtistas =
-                    BajaArtista(
-                        artistas,
-                        *validosArtistas);
+                *validosArtistas = BajaArtista(artistas, *validosArtistas);
                 break;
-
             case 4:
-                MostrarArtista(
-                    artistas,
-                    *validosArtistas);
+                MostrarArtista(artistas, *validosArtistas);
                 break;
         }
-
     }while(opcion != 0);
 }
