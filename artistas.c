@@ -82,29 +82,24 @@ void ModificarArtista(Artista arreglo[], int validos)
 {
     int id;
     int pos;
-
     printf("Ingrese el ID del artista a modificar: ");
     scanf("%d", &id);
     while(getchar() != '\n');
-
     pos = BuscarArtistaPorId(arreglo, validos, id);
-
     if(pos != -1)
     {
         printf("Ingrese el nuevo nombre: ");
         fgets(arreglo[pos].nombre,
-              sizeof(arreglo[pos].nombre),
-              stdin);
-
+        sizeof(arreglo[pos].nombre),
+        stdin);
         arreglo[pos].nombre[
-            strcspn(arreglo[pos].nombre, "\n")
+        strcspn(arreglo[pos].nombre, "\n")
         ] = '\0';
 
         printf("Ingrese el nuevo genero: ");
         fgets(arreglo[pos].genero,
               sizeof(arreglo[pos].genero),
               stdin);
-
         arreglo[pos].genero[
             strcspn(arreglo[pos].genero, "\n")
         ] = '\0';
@@ -127,7 +122,7 @@ int BajaArtista(Artista arreglo[], int validos)
     {
         for(int i = pos; i < validos - 1; i++)
         {
-            arreglo[i] = arreglo[i + 1];
+        arreglo[i] = arreglo[i + 1];
         }
         validos--;
         printf("Artista eliminado correctamente \n");
