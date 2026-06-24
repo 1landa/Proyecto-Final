@@ -3,6 +3,29 @@
 #include <string.h>
 #include "artistas.h"
 
+int LeerArtistasDesdeArchivo(Artista arreglo[], int dimension) {
+     int validos = 0;
+    FILE *archivo = fopen("artistas.dat", "rb");
+    if (archivo != NULL) {
+        while (fread(&arreglo[validos], sizeof(Artista), 1, archivo) == 1) {
+        validos++;
+        }
+        fclose(archivo);
+    } else {
+    printf("No se pudo abrir el archivo\n");
+        return 0;
+    }
+    return validos;
+}
+void CambiaArchivo(Artista arreglo[], int validos) {
+FILE *archivo = fopen("artistas.dat", "wb");
+    if (archivo != NULL) {
+        fwrite(arreglo, sizeof(Artista), validos, archivo);
+        fclose(archivo);
+    } else {
+    printf("No se pudo abrir el archivo \n");
+    }
+}
 int CargaArtista(Artista arreglo[], int validos, int dimension) {
     if (validos == dimension){
         printf("Limite maximo ");
