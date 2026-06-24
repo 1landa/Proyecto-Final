@@ -22,7 +22,8 @@ int CargaPresentacion(Presentacion arreglo[], int validos, int dimension) {
         scanf("%d",&nuevo.idEscenario);
         while (getchar() != '\n');
         printf("Ingrese la horario de inicio, hora y despues minutos): ");
-        scanf("%d %d", &nuevo.horario.hora, &nuevo.horario.minutos);
+        scanf("%d", &nuevo.horario.hora);
+        scanf("%d", &nuevo.horario.minutos);
         while (getchar() != '\n');
         printf("Ingrese la duracion: ");
         scanf("%d %d", &nuevo.duracion.horas, &nuevo.duracion.minutos);
