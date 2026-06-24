@@ -17,7 +17,7 @@ int main()
     int validosPresentaciones = 0;
     do
     {
-        printf("╔══FESTIVAL════════════════════╗\n");
+        printf("╔══════════FESTIVAL════════════╗\n");
         printf("║① Gestionar Artistas          ║\n");
         printf("╠══════════════════════════════╣\n");
         printf("║② Gestionar Escenarios        ║\n");
@@ -43,13 +43,13 @@ int main()
                 validosPresentaciones = CargaPresentacion(presentaciones, validosPresentaciones, DIM);
                 break;
             case 4:
-                printf("\n»»»Listado de artistas««««\n");
+                printf("\n»»» Listado de artistas «««\n");
                 MostrarArtista(artistas, validosArtistas);
 
-                printf("\n»»»Listado de escenarios«««\n");
+                printf("\n»»» Listado de escenarios «««\n");
                 MostrarEscenario(escenarios, validosEscenarios);
 
-                printf("\n»»»Listado de presentaciones «««\n");
+                printf("\n»»» Listado de presentaciones «««\n");
                 MostrarPresentacion(presentaciones, validosPresentaciones);
                 break;
             case 0:
