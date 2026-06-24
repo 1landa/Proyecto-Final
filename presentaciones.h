@@ -1,17 +1,20 @@
 #ifndef PRESENTACIONES_H
 #define PRESENTACIONES_H
 
-typedef struct {
+typedef struct 
+{
     int hora;
     int minutos;
 } Horario;
 
-typedef struct {
+typedef struct 
+{
     int horas;
     int minutos;
 } Duracion;
 
-typedef struct {
+typedef struct 
+{
     int id;
     int idArtista;
     int idEscenario;
@@ -24,16 +27,13 @@ void MostrarPresentacion(Presentacion arreglo[], int validos);
 void ModificarPresentacion(
     Presentacion arreglo[],
     int validos);
-
 int BajaPresentacion(
     Presentacion arreglo[],
     int validos);
-
 void MostrarPresentacionesPorArtista(
     Presentacion arreglo[],
     int validos,
     int idArtista);
-
 void MostrarPresentacionesPorEscenario(
     Presentacion arreglo[],
     int validos,
