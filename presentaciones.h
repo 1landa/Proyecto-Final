@@ -34,27 +34,4 @@ void MostrarPresentacionesPorArtista(Presentacion arreglo[],int validos,int idAr
 void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos,int idEscenario);
 void guardarPresentacion(Presentacion p);
     
-typedef struct 
-{
-    int horas;
-    int minutos;
-    int esValido; 
-} Horario;
-
-typedef struct 
-{
-    int horas;
-    int minutos;
-    int esValido;
-} Duracion;
-
-typedef struct 
-{
-    int id;
-    int idArtista;
-    int idEscenario;
-    Horario inicio;
-    Duracion duracion;
-} Presentacion;
-
 #endif
