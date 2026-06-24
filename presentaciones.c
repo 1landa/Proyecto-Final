@@ -21,7 +21,7 @@ int CargaPresentacion(Presentacion arreglo[], int validos, int dimension) {
         printf("Ingrese el ID del escenario: ");
         scanf("%d",&nuevo.idEscenario);
         while (getchar() != '\n');
-        printf("Ingrese la hora de inicio, hora y despues minutos): ");
+        printf("Ingrese la horario de inicio, hora y despues minutos): ");
         scanf("%d %d", &nuevo.horario.hora, &nuevo.horario.minutos);
         while (getchar() != '\n');
         printf("Ingrese la duracion: ");
@@ -36,14 +36,16 @@ int CargaPresentacion(Presentacion arreglo[], int validos, int dimension) {
         return validos;   
     }
 }
-
-void MostrarPresentacion(Presentacion arreglo[], int validos) {
-    if (validos == 0) {
+void MostrarPresentacion(Presentacion arreglo[], int validos) 
+{
+    if (validos == 0) 
+    {
         printf("No hay presentaciones para mostrar\n");
         return;
     }
     printf("Listado de presentaciones\n");
-    for (int i=0; i<validos; i++) {
+    for (int i=0; i<validos; i++) 
+    {
         printf("╔══════════════════════════════╗\n");
         printf("╠ID:                           ║%d\n", arreglo[i].id);
         printf("╠══════════════════════════════╣\n");
@@ -55,7 +57,6 @@ void MostrarPresentacion(Presentacion arreglo[], int validos) {
         printf("╠══════════════════════════════╣\n");
         printf("╠Duracion:                     ║%02d:%02d\n", arreglo[i].duracion.horas, arreglo[i].duracion.minutos);
         printf("╚══════════════════════════════╝\n");
-
     }
 }
 int BuscarPresentacionPorId(Presentacion arreglo[], int validos, int id)
@@ -102,12 +103,9 @@ int BajaPresentacion(Presentacion arreglo[], int validos)
 {
     int id;
     int pos;
-
     printf("Ingrese el ID de la presentacion a eliminar");
     scanf("%d", &id);
-
     pos = BuscarPresentacionPorId(arreglo, validos, id);
-
     if(pos != -1)
     {
         for(int i = pos; i < validos - 1; i++)
@@ -129,7 +127,6 @@ void MostrarPresentacionesPorArtista(
     int idArtista)
 {
     int encontrado = 0;
-
     for(int i = 0; i < validos; i++)
     {
         if(arreglo[i].idArtista == idArtista)
@@ -146,7 +143,6 @@ void MostrarPresentacionesPorArtista(
             encontrado = 1;
         }
     }
-
     if(!encontrado)
     {
     printf("No hay presentaciones para ese artista\n");
