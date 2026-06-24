@@ -20,4 +20,5 @@ void ModificarArtista(
 int BajaArtista(
     Artista arreglo[],
     int validos);
+int LeerArtistasDesdeArchivo(Artista arreglo[], int dimension);
 #endif

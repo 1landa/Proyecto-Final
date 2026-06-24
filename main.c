@@ -12,9 +12,9 @@ int main()
     Escenario escenarios[DIM];
     Presentacion presentaciones[DIM];
 
-    int validosArtistas = 0;
-    int validosEscenarios = 0;
-    int validosPresentaciones = 0;
+    int validosArtistas = LeerArtistasDesdeArchivo(artistas, DIM);
+    int validosEscenarios = LeerEscenariosDesdeArchivo(escenarios, DIM);
+    int validosPresentaciones = LeerPresentacionesDesdeArchivo(presentaciones, DIM);
     do
     {
         printf("╔══════════FESTIVAL════════════╗\n");
