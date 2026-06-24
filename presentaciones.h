@@ -28,24 +28,11 @@ Presentacion cargarUnaPresentacion(int idAsignado);
 
 int CargaPresentacion(Presentacion arreglo[], int validos, int dimension);
 void MostrarPresentacion(Presentacion arreglo[], int validos);
-void ModificarPresentacion(
-    Presentacion arreglo[],
-    int validos);
-int BajaPresentacion(
-    Presentacion arreglo[],
-    int validos);
-void MostrarPresentacionesPorArtista(
-    Presentacion arreglo[],
-    int validos,
-    int idArtista);
-void MostrarPresentacionesPorEscenario(
-    Presentacion arreglo[],
-    int validos,
-    int idEscenario);
-    void MostrarPresentacionesPorEscenario(
-    Presentacion arreglo[],
-    int validos,
-    int idEscenario);
+void ModificarPresentacion(Presentacion arreglo[], int validos);
+int BajaPresentacion(Presentacion arreglo[],int validos);
+void MostrarPresentacionesPorArtista(Presentacion arreglo[],int validos,int idArtista);
+void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos,int idEscenario);
+void guardarPresentacion(Presentacion p);
     
 typedef struct 
 {
@@ -69,4 +56,5 @@ typedef struct
     Horario inicio;
     Duracion duracion;
 } Presentacion;
+
 #endif
