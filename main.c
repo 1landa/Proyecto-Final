@@ -11,59 +11,130 @@ int main()
     Artista artistas[DIM];
     Escenario escenarios[DIM];
     Presentacion presentaciones[DIM];
-
     int validosArtistas = LeerArtistasDesdeArchivo(artistas, DIM);
     int validosEscenarios = LeerEscenariosDesdeArchivo(escenarios, DIM);
     int validosPresentaciones = LeerPresentacionesDesdeArchivo(presentaciones, DIM);
+    int opcionusuario;
+    char contrasenia[20];
     do
     {
-        printf("╔══════════FESTIVAL════════════╗\n");
-        printf("║① Gestionar Artistas          ║\n");
-        printf("╠══════════════════════════════╣\n");
-        printf("║② Gestionar Escenarios        ║\n");
-        printf("╠══════════════════════════════╣\n");
-        printf("║③ Gestionar Presentaciones    ║\n");
-        printf("╠══════════════════════════════╣\n");
-        printf("║④ Consultas (Listados)        ║\n");
-        printf("╠══════════════════════════════╣\n");
-        printf("║⑤ Exportar Datos              ║\n");
-        printf("╠══════════════════════════════╣\n");
-        printf("║⓪ Salir                       ║\n");
-        printf("╚══════════════════════════════╝\n");
+        printf("╔════════════════════════════════╗\n");
+        printf("║ ① Usuario General              ║\n");
+        printf("╠════════════════════════════════╣\n");
+        printf("║ ② Panel de Administrado        ║\n");
+        printf("╠════════════════════════════════╣\n");
+        printf("║ ⓪ Salir                        ║\n");
+        printf("╚════════════════════════════════╝\n");
+        printf("Seleccione una opcion");
+        scanf("%d", &opcionusuario);
+        switch(opcionusuario)
+        {
+            case 1:
+                menuusuarionormal(presentaciones, validosPresentaciones, artistas, validosArtistas, escenarios, validosEscenarios);
+                break;
+            case 2:
+            printf("Ingrese la contrasenia de admin");
+            scanf("%s", contrasenia);
+            if(strcmp(contrasenia, "admin") == 0)
+
+                menuadmin(presentaciones, &validosPresentaciones, artistas, &validosArtistas, escenarios, &validosEscenarios);
+                else {
+                    printf("Contrasenia incorrecta\n");
+                    printf("Regresando al menu principal        \n");
+                }
+                break;
+            case 0:
+                printf("Saliendo\n");
+                break;
+            default:
+                printf("Seleccione una opcion valida \n");
+                break;
+        }   
+    } while(opcionusuario != 0);
+    return 0;
+}
+void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios)
+{
+    int Identificacion;
+    int opcion;
+    do
+    {
+        printf("╔═════════════════════════════════════════╗\n");
+        printf("║ ① Mostrar Presentaciones                ║\n");
+        printf("╠═════════════════════════════════════════╣\n");
+        printf("║ ② Mostrar Presentaciones por Artista    ║\n");
+        printf("╠═════════════════════════════════════════╣\n");
+        printf("║ ③ Mostrar Presentaciones por Escenario  ║\n");
+        printf("╠═════════════════════════════════════════╣\n");
+        printf("║ ⓪ Menu Principal                        ║\n");
+        printf("╚═════════════════════════════════════════╝\n");
+        printf("Seleccione una opcion");
         scanf("%d", &opcion);
         switch(opcion)
         {
             case 1:
-                validosArtistas = CargaArtista(artistas, validosArtistas, DIM);
+                printf("\n»»» LISTADO DE PRESENTACIONES «««\n");
+                mostrarPresentacion(presentaciones, validosPresentaciones);
                 break;
             case 2:
-                validosEscenarios = CargaEscenario(escenarios, validosEscenarios, DIM);
+                printf("\n»»»Ingrese el ID del artista«««");
+                scanf("%d", &Identificacion);
+            mostrarPresentacionesPorArtista(presentaciones, validosPresentaciones, Identificacion);
                 break;
             case 3:
-                validosPresentaciones = CargaPresentacion(presentaciones, validosPresentaciones, DIM);
-                break;
-            case 4:
-                printf("\n»»» Listado de artistas «««\n");
-                MostrarArtista(artistas, validosArtistas);
-
-                printf("\n»»» Listado de escenarios «««\n");
-                MostrarEscenario(escenarios, validosEscenarios);
-
-                printf("\n»»» Listado de presentaciones «««\n");
-                MostrarPresentacion(presentaciones, validosPresentaciones);
+             printf("\n»»»Ingrese el ID del escenario«««");
+        scanf("%d", &Identificacion);
+            mostrarPresentacionesPorEscenario(presentaciones, validosPresentaciones, Identificacion);
                 break;
             case 0:
-                printf("\nSaliendo...\n");
+                printf("n»»»Volviendo al menú principal«««\n");
                 break;
             default:
-printf("      \\ \\   / /\n");
-printf("       \\ \\ / / \n");
-printf("        \\ X /  \n");
-printf("       / / \\ \\\n");
-printf("      / /   \\ \\\n");
+            printf("Opcion invalida\n");
                 break;
         }
     } while(opcion != 0);
-
-    return 0;
+}
+void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artista artistas[], int *validosArtistas, Escenario escenarios[], int *validosEscenarios){
+    int opcion;
+    do
+    {
+        printf("╔═════════════════════════════════════════╗\n");
+        printf("║ ① Agregar Presentacion                  ║\n");
+        printf("╠═════════════════════════════════════════╣\n");
+        printf("║ ② Modificar Presentacion                ║\n");
+        printf("╠═════════════════════════════════════════╣\n");
+        printf("║ ③ Eliminar Presentacion                 ║\n");
+        printf("╠═════════════════════════════════════════╣\n");
+        printf("║ ⓪ Menu Principal                      ║\n");
+        printf("╚═════════════════════════════════════════╝\n");
+        printf("Seleccione una opcion");
+        scanf("%d", &opcion);
+        switch(opcion)
+        {
+            case 1:
+                if(*validosPresentaciones < DIM)
+                {
+                    (*validosPresentaciones)++;
+                    CargaPresentacion(presentaciones, *validosPresentaciones, DIM);
+                }
+                else
+                {
+                    printf("Limite maximo\n");
+                }
+                break;
+            case 2:
+                ModificarPresentacion(presentaciones, *validosPresentaciones);
+                break;
+            case 3:
+                BajaPresentacion(presentaciones, validosPresentaciones);
+                break;
+            case 0:
+                printf("Volviendo al menu principal\n");
+                break;
+            default:
+                printf("Opcion invalida\n");
+                break;
+        }
+    } while(opcion != 0);
 }
