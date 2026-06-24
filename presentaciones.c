@@ -162,3 +162,37 @@ void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int 
             encontrado = 1;
         }
     }
+    Presentacion cargarUnaPresentacion(int idAsignado) 
+    {
+    Presentacion p;
+    int h, m;
+    p.id = idAsignado;
+    printf("\n»»» NUEVA PRESENTACION «««\n");
+    printf("Ingrese ID del Artista: ");
+    scanf("%d", &p.idArtista);
+    printf("Ingrese ID del Escenario: ");
+    scanf("%d", &p.idEscenario);
+        do {
+        printf("Hora de inicio del show: ");
+        scanf("%d", &h);
+        printf("Minutos de inicio: ");
+        scanf("%d", &m);
+        p.inicio = crearHorario(h, m);
+        if (p.inicio.esValido == 0) {
+            printf("[ERROR] El horario ingresado no existe. Intente de nuevo.\n\n");
+        }
+    } while (p.inicio.esValido == 0);
+    do {
+        printf("Horas de duracion del show: ");
+        scanf("%d", &h);
+        printf("Minutos de duracion (0-59): ");
+        scanf("%d", &m);
+        p.duracion = crearDuracion(h, m);
+
+        if (p.duracion.esValido == 0) {
+            printf("[ERROR] La duracion es invalida. Intente de nuevo.\n\n");
+        }
+    } while (p.duracion.esValido == 0);
+
+    return p;
+}
