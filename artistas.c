@@ -11,9 +11,6 @@ int LeerArtistasDesdeArchivo(Artista arreglo[], int dimension) {
             validos++;
         }
         fclose(archivo);
-    } else {
-        printf("No se pudo abrir el archivo\n");
-        return 0;
     }
     return validos;
 }

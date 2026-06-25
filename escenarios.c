@@ -79,7 +79,6 @@ void MostrarEscenario(Escenario arreglo[], int validos) {
     for (int i = 0; i < validos; i++) {
         printf("ID: %d\n", arreglo[i].id);
         printf("Nombre: %s\n", arreglo[i].nombre);
-        printf("══════════════════════\n");
     }
 }
 

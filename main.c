@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include "artistas.h"
 #include "escenarios.h"
 #include "presentaciones.h"
 #define DIM 100
 int main()
 {
+    setlocale(LC_ALL, "");
     Artista artistas[DIM];
     Escenario escenarios[DIM];
     Presentacion presentaciones[DIM];
@@ -20,11 +22,11 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
     do
     {
         printf("╔════════════════════════════════╗\n");
-        printf("║ ① Usuario General              ║\n");
+        printf("║ 1 Usuario General              ║\n");
         printf("╠════════════════════════════════╣\n");
-        printf("║ ② Panel de Administrado        ║\n");
+        printf("║ 2 Panel de Administrado        ║\n");
         printf("╠════════════════════════════════╣\n");
-        printf("║ ⓪ Salir                        ║\n");
+        printf("║ 0 Salir                        ║\n");
         printf("╚════════════════════════════════╝\n");
         printf("Seleccione una opcion");
         scanf("%d", &opcionusuario);
@@ -61,13 +63,13 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
     do
     {
         printf("╔═════════════════════════════════════════╗\n");
-        printf("║ ① Mostrar Presentaciones                ║\n");
+        printf("║ 1 Mostrar Presentaciones                ║\n");
         printf("╠═════════════════════════════════════════╣\n");
-        printf("║ ② Mostrar Presentaciones por Artista    ║\n");
+        printf("║ 2 Mostrar Presentaciones por Artista    ║\n");
         printf("╠═════════════════════════════════════════╣\n");
-        printf("║ ③ Mostrar Presentaciones por Escenario  ║\n");
+        printf("║ 3 Mostrar Presentaciones por Escenario  ║\n");
         printf("╠═════════════════════════════════════════╣\n");
-        printf("║ ⓪ Menu Principal                        ║\n");
+        printf("║ 0 Menu Principal                        ║\n");
         printf("╚═════════════════════════════════════════╝\n");
         printf("Seleccione una opcion");
         scanf("%d", &opcion);
@@ -102,13 +104,13 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
     do
     {
         printf("╔═════════════════════════════════════════╗\n");
-        printf("║ ① Agregar Presentacion                  ║\n");
+        printf("║ 1 Agregar Presentacion                  ║\n");
         printf("╠═════════════════════════════════════════╣\n");
-        printf("║ ② Modificar Presentacion                ║\n");
+        printf("║ 2 Modificar Presentacion                ║\n");
         printf("╠═════════════════════════════════════════╣\n");
-        printf("║ ③ Eliminar Presentacion                 ║\n");
+        printf("║ 3 Eliminar Presentacion                 ║\n");
         printf("╠═════════════════════════════════════════╣\n");
-        printf("║ ⓪ Menu Principal                        ║\n");
+        printf("║ 0 Menu Principal                        ║\n");
         printf("╚═════════════════════════════════════════╝\n");
         printf("Seleccione una opcion");
         scanf("%d", &opcion);
