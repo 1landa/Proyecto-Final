@@ -12,8 +12,10 @@ int main()
     Artista artistas[DIM];
     Escenario escenarios[DIM];
     Presentacion presentaciones[DIM];
+    
     void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
-void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artista artistas[], int *validosArtistas, Escenario escenarios[], int *validosEscenarios);
+    
+    void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artista artistas[], int *validosArtistas, Escenario escenarios[], int *validosEscenarios);
     int validosArtistas = LeerArtistasDesdeArchivo(artistas, DIM);
     int validosEscenarios = LeerEscenariosDesdeArchivo(escenarios, DIM);
     int validosPresentaciones = LeerPresentacionesDesdeArchivo(presentaciones, DIM);
@@ -60,47 +62,64 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
 }
 void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios)
 {
-    int Identificacion;
     int opcion;
     do
     {
         printf("+=========================================+\n");
-        printf("| 1 Mostrar Presentaciones                |\n");
+        printf("|              MENU USUARIO               |\n");
         printf("+=========================================+\n");
-        printf("| 2 Mostrar Presentaciones por Artista    |\n");
+        printf("| 1 Cronograma Completo                   |\n");
         printf("+=========================================+\n");
-        printf("| 3 Mostrar Presentaciones por Escenario  |\n");
+        printf("| 2 Presentaciones por Artista            |\n");
         printf("+=========================================+\n");
-        printf("| 0 Menu Principal                        |\n");
+        printf("| 3 Presentaciones por Escenario          |\n");
+        printf("+=========================================+\n");
+        printf("| 4 Ver Listado Completo de Artistas      |\n");
+        printf("+=========================================+\n");
+        printf("| 5 Ver Listado Completo de Escenarios    |\n");
+        printf("+=========================================+\n");
+        printf("| 0 Salir al Menu Principal               |\n");
         printf("+=========================================+\n");
         printf("Seleccione una opcion\n");
         scanf("%d", &opcion);
+
         switch(opcion)
         {
             case 1:
-            system("cls");
-                printf("\n >>LISTADO DE PRESENTACIONES <<\n");
-                OrdenaPresentacion(presentaciones, validosPresentaciones);
+                system("cls");
+                OrdenaPresentacion(presentaciones, validosPresentaciones, artistas, validosArtistas);
                 MostrarPresentacion(presentaciones, validosPresentaciones);
                 break;
             case 2:
-            system("cls");
-                printf("\n>>Ingrese el ID del artista<<");
-                scanf("%d", &Identificacion);
-            MostrarPresentacionesPorArtista(presentaciones, validosPresentaciones, Identificacion);
+                system("cls");
+                int idArtista;
+                printf("Ingrese el ID del artista: ");
+                scanf("%d", &idArtista);
+                MostrarPresentacionesPorArtista(presentaciones, validosPresentaciones, idArtista);
                 break;
             case 3:
-            system("cls");
-             printf("\n>>Ingrese el ID del escenario<<");
-        scanf("%d", &Identificacion);
-            MostrarPresentacionesPorEscenario(presentaciones, validosPresentaciones, Identificacion);
+                system("cls");
+                int idEscenario;
+                printf("Ingrese el ID del escenario: ");
+                scanf("%d", &idEscenario);
+                MostrarPresentacionesPorEscenario(presentaciones, validosPresentaciones, idEscenario);
+                break;
+            case 4:
+                system("cls");
+                OrdenarArtista(artistas, validosArtistas);
+                MostrarArtista(artistas, validosArtistas);
+                break;
+            case 5:
+                system("cls");
+                OrdenarEscenario(escenarios, validosEscenarios);
+                MostrarEscenario(escenarios, validosEscenarios);
                 break;
             case 0:
-            system("cls");
-                printf("n>>Volviendo al menú principal<<\n");
+                system("cls");
+                printf("Volviendo al menu principal...\n");
                 break;
             default:
-            printf("Opcion invalida\n");
+                printf("Opcion invalida\n");
                 break;
         }
     } while(opcion != 0);
