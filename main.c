@@ -35,10 +35,10 @@ int main()
             case 2:
             printf("Ingrese la contrasenia de admin");
             scanf("%s", contrasenia);
-            if(strcmp(contrasenia, "admin") == 0)
+            if(strcmp(contrasenia, "admin") == 0){
 
                 menuadmin(presentaciones, &validosPresentaciones, artistas, &validosArtistas, escenarios, &validosEscenarios);
-                else {
+            }else {
                     printf("Contrasenia incorrecta\n");
                     printf("Regresando al menu principal        \n");
                 }
@@ -75,17 +75,17 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
             case 1:
                 printf("\n»»» LISTADO DE PRESENTACIONES «««\n");
                 OrdenaPresentacion(presentaciones, validosPresentaciones);
-                mostrarPresentacion(presentaciones, validosPresentaciones);
+                MostrarPresentacion(presentaciones, validosPresentaciones);
                 break;
             case 2:
                 printf("\n»»»Ingrese el ID del artista«««");
                 scanf("%d", &Identificacion);
-            mostrarPresentacionesPorArtista(presentaciones, validosPresentaciones, Identificacion);
+            MostrarPresentacionesPorArtista(presentaciones, validosPresentaciones, Identificacion);
                 break;
             case 3:
              printf("\n»»»Ingrese el ID del escenario«««");
         scanf("%d", &Identificacion);
-            mostrarPresentacionesPorEscenario(presentaciones, validosPresentaciones, Identificacion);
+            MostrarPresentacionesPorEscenario(presentaciones, validosPresentaciones, Identificacion);
                 break;
             case 0:
                 printf("n»»»Volviendo al menú principal«««\n");
@@ -116,8 +116,7 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
             case 1:
                 if(*validosPresentaciones < DIM)
                 {
-                    (*validosPresentaciones)++;
-                    CargaPresentacion(presentaciones, *validosPresentaciones, DIM);
+                    *validosPresentaciones =        CargaPresentacion(presentaciones, *validosPresentaciones, DIM);
                 }
                 else
                 {
@@ -128,7 +127,7 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
                 ModificarPresentacion(presentaciones, *validosPresentaciones);
                 break;
             case 3:
-                BajaPresentacion(presentaciones, validosPresentaciones);
+*validosPresentaciones = BajaPresentacion(presentaciones, *validosPresentaciones);
                 break;
             case 0:
                 printf("Volviendo al menu principal\n");

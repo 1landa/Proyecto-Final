@@ -92,7 +92,7 @@ void ModificarPresentacion(Presentacion arreglo[], int validos)
         scanf("%d %d",
         &arreglo[pos].duracion.horas,
         &arreglo[pos].duracion.minutos);
-
+        CambiaArchivoPresentaciones(arreglo, validos);
     printf("Presentacion modificada correctamente\n");
     }
     else
@@ -115,6 +115,7 @@ int BajaPresentacion(Presentacion arreglo[], int validos)
         }
         validos--;
         printf("Presentacion eliminada correctamente\n");
+        CambiaArchivoPresentaciones(arreglo, validos);
     }
     else
     {
@@ -164,28 +165,37 @@ void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int 
     }
 }
 void OrdenaPresentacion(Presentacion arreglo[], int validos) {
-    for (int i = 0; i < validos - 1; i++) {
-        for (int j = 0; j < validos - i - 1; j++) {
-            if (arreglo[j].id > arreglo[j + 1].id) {
+    for (int i=0; i < validos-1; i++) {
+        for (int j=0; j <validos-i-1; j++) {
+            int inicioJ=arreglo[j].horario.hora*60+arreglo[j].horario.minutos;
+            int inicioSig=arreglo[j+1].horario.hora*60+arreglo[j+1].horario.minutos;
+            if (inicioJ > inicioSig) {
             Presentacion temp = arreglo[j];
-            arreglo[j] = arreglo[j + 1];
-            arreglo[j + 1] = temp;
+            arreglo[j] = arreglo[j+1];
+            arreglo[j+1] = temp;
             }
         }
     }
 }
-void CompruebaSolapamiento(Presentacion actuales[], int validos, Presentacion nueva) {
-    for (int i=0; i<validos; i++) {
-        if (actuales[i].idEscenario==nueva.idEscenario) {
-        int inicioActual=actuales[i].horario.hora*60+actuales[i].horario.minutos;
-        int finActual=inicioActual+actuales[i].duracion.horas*60+actuales[i].duracion.minutos;
-        int inicioNueva=nueva.horario.hora*60+nueva.horario.minutos;
-        int finNueva=inicioNueva+nueva.duracion.horas*60+nueva.duracion.minutos;
-        if ((inicioNueva<finActual) && (finNueva>inicioActual)) {
-        printf("Las presentaciones se solapan %d\n", actuales[i].id);
-            return;
+int ComprobarSolapamiento(Presentacion actuales[], int validos, Presentacion nueva) {
+    for (int i = 0; i < validos; i++) {
+        if (actuales[i].idEscenario == nueva.idEscenario) {
+            int inicioActual=actuales[i].horario.hora*60+actuales[i].horario.minutos;
+            int finActual=inicioActual+actuales[i].duracion.horas*60+actuales[i].duracion.minutos;
+            int inicioNueva=nueva.horario.hora*60+nueva.horario.minutos;
+            int finNueva=inicioNueva+nueva.duracion.horas*60+nueva.duracion.minutos;
+            if ((inicioNueva<finActual) && (finNueva>inicioActual)) {
+                return 1;
             }
-        }
     }
-    printf("No hay solapamiento\n");
+
+    return 0;
+}
+}
+void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos) {
+    FILE *archivo=fopen("presentaciones.dat","wb");
+    if (archivo!=NULL) {
+    fwrite(arreglo, sizeof(Presentacion), validos, archivo);
+    fclose(archivo);
+    }
 }

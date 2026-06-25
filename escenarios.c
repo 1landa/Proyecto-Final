@@ -27,6 +27,7 @@ int CargaEscenario(Escenario arreglo[], int validos, int dimension)
         validos++;  
         return validos;
     }
+    return validos;
 }
 void OrdenarEscenario(Escenario arreglo[], int validos) 
 {

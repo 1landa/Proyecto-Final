@@ -22,4 +22,5 @@ int BajaArtista(
     int validos);
 int LeerArtistasDesdeArchivo(Artista arreglo[], int dimension);
 void OrdenarArtista(Artista arreglo[], int validos);
+void CambiaArchivo(Artista arreglo[], int validos);
 #endif

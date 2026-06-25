@@ -128,6 +128,7 @@ void ModificarArtista(Artista arreglo[], int validos)
         ] = '\0';
 
         printf("Artista modificado correctamente\n");
+        CambiaArchivo(arreglo, validos);
     }
     else
     {
@@ -149,6 +150,7 @@ int BajaArtista(Artista arreglo[], int validos)
         }
         validos--;
         printf("Artista eliminado correctamente \n");
+        CambiaArchivo(arreglo, validos);
     }
     else
     {
