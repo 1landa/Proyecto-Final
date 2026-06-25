@@ -3,7 +3,7 @@
 
 typedef struct 
 {
-    int horas;
+    int hora;
     int minutos;
     int esValido; 
 } Horario;
@@ -20,7 +20,7 @@ typedef struct
     int id;
     int idArtista;
     int idEscenario;
-    Horario inicio;
+    Horario horario;
     Duracion duracion;
 } Presentacion;
 Horario crearHorario(int horas, int minutos);
@@ -33,4 +33,6 @@ int BajaPresentacion(Presentacion arreglo[], int validos);
 void MostrarPresentacionesPorArtista(Presentacion arreglo[], int validos, int idArtista);
 void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int idEscenario);
 int ComprobarSolapamiento(Presentacion actuales[], int validos, Presentacion nueva);
+void OrdenaPresentacion(Presentacion arreglo[], int validos);
+void CompruebaSolapamiento(Presentacion actuales[], int validos, Presentacion nueva);
 #endif

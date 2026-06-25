@@ -139,8 +139,7 @@ void MostrarPresentacionesPorArtista(
         printf("╠══════════════════════════════╣\n");
         printf("╠Horario:                      ║%02d:%02d\n", arreglo[i].horario.hora, arreglo[i].horario.minutos);
         printf("╚══════════════════════════════╝\n");
-            arreglo[i].horario.hora,
-            arreglo[i].horario.minutos);
+        printf("╠Duracion:                     ║%02d:%02d\n", arreglo[i].duracion.horas, arreglo[i].duracion.minutos);
             encontrado = 1;
         }
     }
@@ -163,37 +162,30 @@ void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int 
             encontrado = 1;
         }
     }
-    Presentacion cargarUnaPresentacion(int idAsignado) 
-    {
-    Presentacion p;
-    int h, m;
-    p.id = idAsignado;
-    printf("\n»»» NUEVA PRESENTACION «««\n");
-    printf("Ingrese ID del Artista: ");
-    scanf("%d", &p.idArtista);
-    printf("Ingrese ID del Escenario: ");
-    scanf("%d", &p.idEscenario);
-        do {
-        printf("Hora de inicio del show: ");
-        scanf("%d", &h);
-        printf("Minutos de inicio: ");
-        scanf("%d", &m);
-        p.inicio = crearHorario(h, m);
-        if (p.inicio.esValido == 0) {
-            printf("[ERROR] El horario ingresado no existe. Intente de nuevo.\n\n");
+}
+void OrdenaPresentacion(Presentacion arreglo[], int validos) {
+    for (int i = 0; i < validos - 1; i++) {
+        for (int j = 0; j < validos - i - 1; j++) {
+            if (arreglo[j].id > arreglo[j + 1].id) {
+            Presentacion temp = arreglo[j];
+            arreglo[j] = arreglo[j + 1];
+            arreglo[j + 1] = temp;
+            }
         }
-    } while (p.inicio.esValido == 0);
-    do {
-        printf("Horas de duracion del show: ");
-        scanf("%d", &h);
-        printf("Minutos de duracion (0-59): ");
-        scanf("%d", &m);
-        p.duracion = crearDuracion(h, m);
-
-        if (p.duracion.esValido == 0) {
-            printf("[ERROR] La duracion es invalida. Intente de nuevo.\n\n");
+    }
+}
+void CompruebaSolapamiento(Presentacion actuales[], int validos, Presentacion nueva) {
+    for (int i=0; i<validos; i++) {
+        if (actuales[i].idEscenario==nueva.idEscenario) {
+        int inicioActual=actuales[i].horario.hora*60+actuales[i].horario.minutos;
+        int finActual=inicioActual+actuales[i].duracion.horas*60+actuales[i].duracion.minutos;
+        int inicioNueva=nueva.horario.hora*60+nueva.horario.minutos;
+        int finNueva=inicioNueva+nueva.duracion.horas*60+nueva.duracion.minutos;
+        if ((inicioNueva<finActual) && (finNueva>inicioActual)) {
+        printf("Las presentaciones se solapan %d\n", actuales[i].id);
+            return;
+            }
         }
-    } while (p.duracion.esValido == 0);
-
-    return p;
+    }
+    printf("No hay solapamiento\n");
 }

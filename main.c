@@ -74,6 +74,7 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
         {
             case 1:
                 printf("\n»»» LISTADO DE PRESENTACIONES «««\n");
+                OrdenaPresentacion(presentaciones, validosPresentaciones);
                 mostrarPresentacion(presentaciones, validosPresentaciones);
                 break;
             case 2:
@@ -106,7 +107,7 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
         printf("╠═════════════════════════════════════════╣\n");
         printf("║ ③ Eliminar Presentacion                 ║\n");
         printf("╠═════════════════════════════════════════╣\n");
-        printf("║ ⓪ Menu Principal                      ║\n");
+        printf("║ ⓪ Menu Principal                        ║\n");
         printf("╚═════════════════════════════════════════╝\n");
         printf("Seleccione una opcion");
         scanf("%d", &opcion);
