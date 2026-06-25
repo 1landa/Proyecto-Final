@@ -24,7 +24,7 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
         printf("+================================+\n");
         printf("| 1 Usuario General              |\n");
         printf("+================================+\n");
-        printf("| 2 Panel de Administrado        |\n");
+        printf("| 2 Panel de Administrador       |\n");
         printf("+================================+\n");
         printf("| 0 Salir                        |\n");
         printf("+================================+\n");
@@ -41,7 +41,7 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
             printf("Ingrese la contrasenia de admin\n");
             scanf("%s", contrasenia);
             if(strcmp(contrasenia, "admin") == 0){
-
+            system("cls");
                 menuadmin(presentaciones, &validosPresentaciones, artistas, &validosArtistas, escenarios, &validosEscenarios);
             }else {
                     printf("Contrasenia incorrecta\n");
