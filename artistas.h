@@ -8,19 +8,9 @@ typedef struct {
 int CargaArtista(Artista arreglo[], int validos, int dimension);
 void MostrarArtista(Artista arreglo[], int validos);
 void OrdenarArtista(Artista arreglo[], int validos);
-int BuscarArtistaPorId(
-    Artista arreglo[],
-    int validos,
-    int id);
-
-void ModificarArtista(
-    Artista arreglo[],
-    int validos);
-
-int BajaArtista(
-    Artista arreglo[],
-    int validos);
+int BuscarArtistaPorId(Artista arreglo[], int validos, int id);
+void ModificarArtista(Artista arreglo[], int validos);
+int BajaArtista(Artista arreglo[], int validos);
 int LeerArtistasDesdeArchivo(Artista arreglo[], int dimension);
-void OrdenarArtista(Artista arreglo[], int validos);
 void CambiaArchivo(Artista arreglo[], int validos);
 #endif

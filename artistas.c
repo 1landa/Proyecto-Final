@@ -4,28 +4,30 @@
 #include "artistas.h"
 
 int LeerArtistasDesdeArchivo(Artista arreglo[], int dimension) {
-     int validos = 0;
+    int validos = 0;
     FILE *archivo = fopen("artistas.dat", "rb");
     if (archivo != NULL) {
         while (fread(&arreglo[validos], sizeof(Artista), 1, archivo) == 1) {
-        validos++;
+            validos++;
         }
         fclose(archivo);
     } else {
-    printf("No se pudo abrir el archivo\n");
+        printf("No se pudo abrir el archivo\n");
         return 0;
     }
     return validos;
 }
+
 void CambiaArchivo(Artista arreglo[], int validos) {
-FILE *archivo = fopen("artistas.dat", "wb");
+    FILE *archivo = fopen("artistas.dat", "wb");
     if (archivo != NULL) {
         fwrite(arreglo, sizeof(Artista), validos, archivo);
         fclose(archivo);
     } else {
-    printf("No se pudo abrir el archivo \n");
+        printf("No se pudo abrir el archivo \n");
     }
 }
+
 int CargaArtista(Artista arreglo[], int validos, int dimension) {
     if (validos >= dimension) {
         printf("Limite maximo\n");
@@ -40,14 +42,14 @@ int CargaArtista(Artista arreglo[], int validos, int dimension) {
     }
     FILE *archivo = fopen("artistas.dat", "ab");
     if (archivo != NULL) {
-    Artista nuevo;
-    printf("Ingrese el nuevo ID");
-    scanf("%d", &nuevo.id);
+        Artista nuevo;
+        printf("Ingrese el nuevo ID: ");
+        scanf("%d", &nuevo.id);
         while (getchar() != '\n');
-        printf("Ingrese el nombre del artista");
+        printf("Ingrese el nombre del artista: ");
         fgets(nuevo.nombre, sizeof(nuevo.nombre), stdin);
         nuevo.nombre[strcspn(nuevo.nombre, "\n")] = '\0';
-        printf("Ingrese el genero musical");
+        printf("Ingrese el genero musical: ");
         fgets(nuevo.genero, sizeof(nuevo.genero), stdin);
         nuevo.genero[strcspn(nuevo.genero, "\n")] = '\0';
         fwrite(&nuevo, sizeof(Artista), 1, archivo);
@@ -55,19 +57,19 @@ int CargaArtista(Artista arreglo[], int validos, int dimension) {
         arreglo[validos] = nuevo;
         return CargaArtista(arreglo, validos + 1, dimension);
     } else {
-        printf("No sse pudo abrir el archivo\n");
+        printf("No se pudo abrir el archivo\n");
         return validos;
     }
 }
+
 void OrdenarArtista(Artista arreglo[], int validos) {
-    if (validos<1){
-        printf("No hay artistas para ordenar");
+    if (validos < 1) {
         return;
     }
     int menor;
     Artista aux;    
-    for (int i=0; i<validos-1; i++) {
-        menor=i;
+    for (int i = 0; i < validos - 1; i++) {
+        menor = i;
         for (int j = i + 1; j < validos; j++) {
             if (strcmp(arreglo[j].nombre, arreglo[menor].nombre) < 0) {
                 menor = j;
@@ -79,100 +81,75 @@ void OrdenarArtista(Artista arreglo[], int validos) {
             arreglo[menor] = aux;
         }
     }
-    printf("Los artistas fueron ordenados alfabeticamente\n");
 }
+
 void MostrarArtista(Artista arreglo[], int validos) {
     if (validos == 0) {
-        printf("No hay artistas para mostrar\n");
+        printf("No hay artistas\n");
         return;
     }
+    OrdenarArtista(arreglo, validos);
     printf("Listado de artistas\n");
-    for (int i=0; i<validos; i++) {
-    printf("╔══════════════════════════════╗\n");
-    printf("╠ID:                           ║%d\n", arreglo[i].id);
-    printf("╠══════════════════════════════╣\n");
-    printf("╠Nombre:                       ║%s\n", arreglo[i].nombre);
-    printf("╠══════════════════════════════╣\n");
-    printf("╠Genero:                       ║%s\n", arreglo[i].genero);
-    printf("╚══════════════════════════════╝\n");
+    for (int i = 0; i < validos; i++) {
+        printf("╔══════════════════════════════╗\n");
+        printf("╠ID:                           ║%d\n", arreglo[i].id);
+        printf("╠══════════════════════════════╣\n");
+        printf("╠Nombre:                       ║%s\n", arreglo[i].nombre);
+        printf("╠══════════════════════════════╣\n");
+        printf("╠Genero:                       ║%s\n", arreglo[i].genero);
+        printf("╚══════════════════════════════╝\n");
     }
 }
-   int BuscarArtistaPorId(Artista arreglo[], int validos, int id)
-{
-    for(int i = 0; i < validos; i++)
-    {
-        if(arreglo[i].id == id)
-        {
+int BuscarArtistaPorId(Artista arreglo[], int validos, int id) {
+    for (int i = 0; i < validos; i++) {
+        if (arreglo[i].id == id) {
             return i;
         }
     }
     return -1;
 }
-void ModificarArtista(Artista arreglo[], int validos)
-{
+void ModificarArtista(Artista arreglo[], int validos) {
     int id;
     int pos;
-    printf("Ingrese el ID del artista a modificar: ");
+    printf("Ingrese el ID del artista a modificar");
     scanf("%d", &id);
-    while(getchar() != '\n');
+    while (getchar() != '\n');
     pos = BuscarArtistaPorId(arreglo, validos, id);
-    if(pos != -1)
-    {
-        printf("Ingrese el nuevo nombre: ");
-        fgets(arreglo[pos].nombre,
-        sizeof(arreglo[pos].nombre),
-        stdin);
-        arreglo[pos].nombre[
-        strcspn(arreglo[pos].nombre, "\n")
-        ] = '\0';
-
+    if (pos != -1) {
+        printf("Ingrese el nuevo nombre");
+        fgets(arreglo[pos].nombre, sizeof(arreglo[pos].nombre), stdin);
+        arreglo[pos].nombre[strcspn(arreglo[pos].nombre, "\n")] = '\0';
         printf("Ingrese el nuevo genero: ");
-        fgets(arreglo[pos].genero,
-              sizeof(arreglo[pos].genero),
-              stdin);
-        arreglo[pos].genero[
-            strcspn(arreglo[pos].genero, "\n")
-        ] = '\0';
-
-        printf("Artista modificado correctamente\n");
+        fgets(arreglo[pos].genero, sizeof(arreglo[pos].genero), stdin);
+        arreglo[pos].genero[strcspn(arreglo[pos].genero, "\n")] = '\0';
+        printf("Artista modificado\n");
         CambiaArchivo(arreglo, validos);
-    }
-    else
-    {
-        printf("No existe un artista con ese ID\n");
+    } else {
+        printf("No existe un artista\n");
     }
 }
-int BajaArtista(Artista arreglo[], int validos)
-{
+int BajaArtista(Artista arreglo[], int validos) {
     int id;
     int pos;
-    printf("Ingrese el ID del artista a eliminar: ");
+    printf("Ingrese el ID del artista a eliminar");
     scanf("%d", &id);
     pos = BuscarArtistaPorId(arreglo, validos, id);
-    if(pos != -1)
-    {
-        for(int i = pos; i < validos - 1; i++)
-        {
-        arreglo[i] = arreglo[i + 1];
+    if (pos != -1) {
+        for (int i = pos; i < validos - 1; i++) {
+            arreglo[i] = i + 1 < validos ? arreglo[i + 1] : arreglo[i];
         }
         validos--;
-        printf("Artista eliminado correctamente \n");
+        printf("Artista eliminado \n");
         CambiaArchivo(arreglo, validos);
-    }
-    else
-    {
-        printf("No existe un artista con ese ID \n");
+    } else {
+        printf("No existe ese artista \n");
     }
     return validos;
 }
-void menuArtistas(
-    Artista artistas[],
-    int *validosArtistas,
-    int dimension)
-{
+
+void menuArtistas(Artista artistas[], int *validosArtistas, int dimension) {
     int opcion;
-    do
-    {
+    do {
         printf("╔══════════════════════════════╗\n");
         printf("╠ 1-Alta                       ║\n");
         printf("╠══════════════════════════════╣\n");
@@ -184,9 +161,8 @@ void menuArtistas(
         printf("╠══════════════════════════════╣\n");
         printf("╠ 0-Volver                     ║\n");
         printf("╚══════════════════════════════╝\n");
-        scanf("%d",&opcion);
-        switch(opcion)
-        {
+        scanf("%d", &opcion);
+        switch (opcion) {
             case 1:
                 *validosArtistas = CargaArtista(artistas, *validosArtistas, dimension);
                 break;
@@ -200,5 +176,5 @@ void menuArtistas(
                 MostrarArtista(artistas, *validosArtistas);
                 break;
         }
-    }while(opcion != 0);
+    } while (opcion != 0);
 }

@@ -7,10 +7,11 @@
 #define DIM 100
 int main()
 {
-    int opcion;
     Artista artistas[DIM];
     Escenario escenarios[DIM];
     Presentacion presentaciones[DIM];
+    void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
+void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artista artistas[], int *validosArtistas, Escenario escenarios[], int *validosEscenarios);
     int validosArtistas = LeerArtistasDesdeArchivo(artistas, DIM);
     int validosEscenarios = LeerEscenariosDesdeArchivo(escenarios, DIM);
     int validosPresentaciones = LeerPresentacionesDesdeArchivo(presentaciones, DIM);
@@ -114,15 +115,13 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
         switch(opcion)
         {
             case 1:
-                case 1:
-    *validosPresentaciones = CargaPresentacion(presentaciones, *validosPresentaciones, DIM);
-    break;
+                *validosPresentaciones = CargaPresentacion(presentaciones, *validosPresentaciones, DIM);
                 break;
             case 2:
                 ModificarPresentacion(presentaciones, *validosPresentaciones);
                 break;
             case 3:
-*validosPresentaciones = BajaPresentacion(presentaciones, *validosPresentaciones);
+                *validosPresentaciones = BajaPresentacion(presentaciones, *validosPresentaciones);
                 break;
             case 0:
                 printf("Volviendo al menu principal\n");
