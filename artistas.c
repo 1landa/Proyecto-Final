@@ -88,13 +88,13 @@ void MostrarArtista(Artista arreglo[], int validos) {
     OrdenarArtista(arreglo, validos);
     printf("Listado de artistas\n");
     for (int i = 0; i < validos; i++) {
-        printf("+==============================+\n");
-        printf("+ID:                           |%d\n", arreglo[i].id);
-        printf("+==============================+\n");
-        printf("+Nombre:                       |%s\n", arreglo[i].nombre);
-        printf("+==============================+\n");
-        printf("+Genero:                       |%s\n", arreglo[i].genero);
-        printf("+==============================+\n");
+        printf("+===============+\n");
+        printf("+ID:            |%d\n", arreglo[i].id);
+        printf("+===============+\n");
+        printf("+Nombre:        |%s\n", arreglo[i].nombre);
+        printf("+===============+\n");
+        printf("+Genero:        |%s\n", arreglo[i].genero);
+        printf("+===============+\n");
     }
 }
 int BuscarArtistaPorId(Artista arreglo[], int validos, int id) {
