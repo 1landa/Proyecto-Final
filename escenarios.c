@@ -27,7 +27,7 @@ int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
         return validos;
     }
     int continuar;
-    printf("Desea ingresar un escenario? 1 si 2 no");
+    printf("Desea ingresar un escenario? 1 si 2 no\n");
     scanf("%d", &continuar);
     while (getchar() != '\n');
     if (continuar == 0) {
@@ -36,7 +36,7 @@ int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
     FILE *archivo = fopen("escenarios.dat", "ab");
     if (archivo != NULL) {
         Escenario nuevo;
-        printf("Ingrese la ID del escenario nuevo: ");
+        printf("Ingrese la ID del escenario nuevo: \n ");
         scanf("%d", &nuevo.id);
         while (getchar() != '\n');
         printf("Ingrese el nombre: ");
@@ -93,16 +93,19 @@ int BuscarEscenarioPorId(Escenario arreglo[], int validos, int id) {
 void ModificarEscenario(Escenario arreglo[], int validos) {
     int id;
     int pos;
-    printf("Ingrese el ID del escenario a modificar: ");
+    system("cls");
+    printf("Ingrese el ID del escenario a modificar: \n ");
     scanf("%d", &id);
     while (getchar() != '\n');
     pos = BuscarEscenarioPorId(arreglo, validos, id);
     if (pos != -1) {
+        system("cls");
         printf("Ingrese el nuevo nombre: ");
         fgets(arreglo[pos].nombre, sizeof(arreglo[pos].nombre), stdin);
         arreglo[pos].nombre[strcspn(arreglo[pos].nombre, "\n")] = '\0';
         CambiaArchivoEscenarios(arreglo, validos);
-        printf("El escenario ha sido modificado correctamente\n");
+        system("cls");
+        printf("El escenario ha sido modificado\n");
     } else {
         printf("Con ese ID no existe un escenario\n");
     }
@@ -111,7 +114,8 @@ void ModificarEscenario(Escenario arreglo[], int validos) {
 int BajaEscenario(Escenario arreglo[], int validos) {
     int id;
     int pos;
-    printf("Ingrese el ID del escenario a eliminar: ");
+    system("cls");
+    printf("Ingrese el ID del escenario a eliminar \n");
     scanf("%d", &id);
     pos = BuscarEscenarioPorId(arreglo, validos, id);
     if (pos != -1) {
@@ -120,6 +124,7 @@ int BajaEscenario(Escenario arreglo[], int validos) {
         }
         validos--;
         CambiaArchivoEscenarios(arreglo, validos);
+        system("cls");
         printf("El escenario ha sido eliminado \n");
     } else {
         printf("Con ese ID no existe un escenario\n");
