@@ -3,17 +3,64 @@
 #include <string.h>
 #include "presentaciones.h"
 
+Horario crearHorario(int horas, int minutos){
+    Horario h;
+    if(horas>=0 && horas <24 && minutos >= 0 && minutos <60){
+        h.hora=horas;
+        h.minutos=minutos;
+        h.esValido=1;
+    }else{
+        h.hora=0;
+        h.minutos=0;
+        h.esValido=0;
+    }
+    return h;
+}
+Duracion crearDuracion(int horas, int minutos) {
+    Duracion d;
+    if(horas>=0 && minutos >=0 && minutos <60){
+        d.horas=0;
+        d.minutos=0;
+        d.esValido=0;
+    }
+    return d;
+}
+int LeerPresentacionesDesdeArchivo(Presentacion arreglo[], int dimension) {
+    int validos = 0;
+    FILE *archivo = fopen("presentaciones.dat", "rb");
+    if (archivo != NULL) {
+        while (fread(&arreglo[validos], sizeof(Presentacion), 1, archivo) == 1) {
+            validos++;
+        }
+        fclose(archivo);
+    }
+    return validos;
+}
+int ComprobarSolapamiento(Presentacion actuales[], int validos, Presentacion nueva) {
+    for (int i = 0; i < validos; i++) {
+        if (actuales[i].idEscenario == nueva.idEscenario) {
+            int inicioActual=actuales[i].horario.hora*60+actuales[i].horario.minutos;
+            int finActual=inicioActual+actuales[i].duracion.horas*60+actuales[i].duracion.minutos;
+            int inicioNueva=nueva.horario.hora*60+nueva.horario.minutos;
+            int finNueva=inicioNueva+nueva.duracion.horas*60+nueva.duracion.minutos;
+            if ((inicioNueva<finActual) && (finNueva>inicioActual)) {
+                return 1;
+            }
+    }
+
+    return 0;
+}
+}
 int CargaPresentacion(Presentacion arreglo[], int validos, int dimension) {
     if (validos == dimension) {
-        printf("Limite maximo alcanzado.\n");
+        printf("Limite maximo\n");
         return validos;
     }
 
     int continuar;
-    printf("Desea ingresar una presentacion? 1-Si, 0-No: ");
+    printf("Desea ingresar una presentacion? 1 si 0 no: ");
     scanf("%d", &continuar);
     while (getchar() != '\n');
-
     if (continuar == 0) {
         return validos;
     }
@@ -94,12 +141,12 @@ void ModificarPresentacion(Presentacion arreglo[], int validos)
         scanf("%d %d",
         &arreglo[pos].horario.hora,
         &arreglo[pos].horario.minutos);
-        printf("Nueva duracion (horas minutos): ");
+        printf("Nueva duracion ");
         scanf("%d %d",
         &arreglo[pos].duracion.horas,
         &arreglo[pos].duracion.minutos);
         CambiaArchivoPresentaciones(arreglo, validos);
-    printf("Presentacion modificada correctamente\n");
+    printf("Presentacion modificada\n");
     }
     else
     {
@@ -139,20 +186,34 @@ void MostrarPresentacionesPorArtista(
     {
         if(arreglo[i].idArtista == idArtista)
         {
-        printf("╔══════════════════════════════╗\n");
-        printf("╠ID:                           ║%d\n", arreglo[i].id);
-        printf("╠══════════════════════════════╣\n");
-        printf("╠Escenario:                    ║%d\n", arreglo[i].idEscenario); 
-        printf("╠══════════════════════════════╣\n");
-        printf("╠Horario:                      ║%02d:%02d\n", arreglo[i].horario.hora, arreglo[i].horario.minutos);
-        printf("╚══════════════════════════════╝\n");
-        printf("╠Duracion:                     ║%02d:%02d\n", arreglo[i].duracion.horas, arreglo[i].duracion.minutos);
+            printf("╔══════════════════════════════╗\n");
+            printf("╠ID:                           ║%d\n", arreglo[i].id);
+            printf("╠══════════════════════════════╣\n");
+            printf("╠Escenario:                    ║%d\n", arreglo[i].idEscenario); 
+            printf("╠══════════════════════════════╣\n");
+            printf("╠Horario:                      ║%02d:%02d\n", arreglo[i].horario.hora, arreglo[i].horario.minutos);
+            printf("╠══════════════════════════════╣\n");
+            printf("╠Duracion:                     ║%02d:%02d\n", arreglo[i].duracion.horas, arreglo[i].duracion.minutos);
+            printf("╚══════════════════════════════╝\n");
             encontrado = 1;
         }
     }
     if(!encontrado)
     {
     printf("No hay presentaciones para ese artista\n");
+    }
+}
+void OrdenaPresentacion(Presentacion arreglo[], int validos) {
+    for (int i=0; i < validos-1; i++) {
+        for (int j=0; j <validos-i-1; j++) {
+            int inicioJ=arreglo[j].horario.hora*60+arreglo[j].horario.minutos;
+            int inicioSig=arreglo[j+1].horario.hora*60+arreglo[j+1].horario.minutos;
+            if (inicioJ > inicioSig) {
+            Presentacion temp = arreglo[j];
+            arreglo[j] = arreglo[j+1];
+            arreglo[j+1] = temp;
+            }
+        }
     }
 }
 void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int idEscenario) {
@@ -169,34 +230,6 @@ void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int 
             encontrado = 1;
         }
     }
-}
-void OrdenaPresentacion(Presentacion arreglo[], int validos) {
-    for (int i=0; i < validos-1; i++) {
-        for (int j=0; j <validos-i-1; j++) {
-            int inicioJ=arreglo[j].horario.hora*60+arreglo[j].horario.minutos;
-            int inicioSig=arreglo[j+1].horario.hora*60+arreglo[j+1].horario.minutos;
-            if (inicioJ > inicioSig) {
-            Presentacion temp = arreglo[j];
-            arreglo[j] = arreglo[j+1];
-            arreglo[j+1] = temp;
-            }
-        }
-    }
-}
-int ComprobarSolapamiento(Presentacion actuales[], int validos, Presentacion nueva) {
-    for (int i = 0; i < validos; i++) {
-        if (actuales[i].idEscenario == nueva.idEscenario) {
-            int inicioActual=actuales[i].horario.hora*60+actuales[i].horario.minutos;
-            int finActual=inicioActual+actuales[i].duracion.horas*60+actuales[i].duracion.minutos;
-            int inicioNueva=nueva.horario.hora*60+nueva.horario.minutos;
-            int finNueva=inicioNueva+nueva.duracion.horas*60+nueva.duracion.minutos;
-            if ((inicioNueva<finActual) && (finNueva>inicioActual)) {
-                return 1;
-            }
-    }
-
-    return 0;
-}
 }
 void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos) {
     FILE *archivo=fopen("presentaciones.dat","wb");
