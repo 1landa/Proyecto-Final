@@ -37,4 +37,5 @@ void OrdenaPresentacion(Presentacion arreglo[], int validos);
 void CompruebaSolapamiento(Presentacion actuales[], int validos, Presentacion nueva);
 void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos);
 int LeerPresentacionesDesdeArchivo(Presentacion arreglo[], int dimension);
+void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos) {
 #endif

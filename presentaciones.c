@@ -155,7 +155,8 @@ void ModificarPresentacion(Presentacion arreglo[], int validos)
         &arreglo[pos].duracion.horas,
         &arreglo[pos].duracion.minutos);
         CambiaArchivoPresentaciones(arreglo, validos);
-    printf("Presentacion modificada\n");
+        CambiaArchivoPresentaciones(presentaciones, validos);
+        printf("Presentacion modificada\n");
     }
     else
     {
@@ -178,6 +179,7 @@ int BajaPresentacion(Presentacion arreglo[], int validos)
         validos--;
         printf("Presentacion eliminada correctamente\n");
         CambiaArchivoPresentaciones(arreglo, validos);
+        CambiaArchivoPresentaciones(presentaciones, validos);
     }
     else
     {
@@ -245,5 +247,14 @@ void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos) {
     if (archivo!=NULL) {
     fwrite(arreglo, sizeof(Presentacion), validos, archivo);
     fclose(archivo);
+    }
+}
+void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos) {
+    FILE *archi = fopen("presentaciones.dat", "wb");
+    if (archi != NULL) {
+        fwrite(arreglo,sizeof(Presentacion))
+        fcloe(archi);
+    }else{
+        printf("No se pudo abrir el archivo");
     }
 }
