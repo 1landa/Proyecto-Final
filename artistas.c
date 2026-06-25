@@ -60,22 +60,13 @@ int CargaArtista(Artista arreglo[], int validos, int dimension) {
 }
 
 void OrdenarArtista(Artista arreglo[], int validos) {
-    if (validos < 1) {
-        return;
-    }
-    int menor;
-    Artista aux;    
     for (int i = 0; i < validos - 1; i++) {
-        menor = i;
-        for (int j = i + 1; j < validos; j++) {
-            if (strcmp(arreglo[j].nombre, arreglo[menor].nombre) < 0) {
-                menor = j;
+        for (int j = 0; j < validos - i - 1; j++) {
+            if (strcasecmp(arreglo[j].nombre, arreglo[j+1].nombre) > 0) {
+                Artista temp = arreglo[j];
+                arreglo[j] = arreglo[j+1];
+                arreglo[j+1] = temp;
             }
-        }
-        if (menor != i) {
-            aux = arreglo[i];
-            arreglo[i] = arreglo[menor];
-            arreglo[menor] = aux;
         }
     }
 }

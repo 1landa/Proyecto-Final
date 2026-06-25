@@ -214,15 +214,23 @@ void MostrarPresentacionesPorArtista(
     printf("No hay presentaciones para ese artista\n");
     }
 }
-void OrdenaPresentacion(Presentacion arreglo[], int validos) {
-    for (int i=0; i < validos-1; i++) {
-        for (int j=0; j <validos-i-1; j++) {
-            int inicioJ=arreglo[j].horario.hora*60+arreglo[j].horario.minutos;
-            int inicioSig=arreglo[j+1].horario.hora*60+arreglo[j+1].horario.minutos;
-            if (inicioJ > inicioSig) {
-            Presentacion temp = arreglo[j];
-            arreglo[j] = arreglo[j+1];
-            arreglo[j+1] = temp;
+void OrdenaPresentacion(Presentacion arreglo[], int validos, Artista artistas[], int validosArtistas) {
+    for (int i = 0; i < validos - 1; i++) {
+        for (int j = 0; j < validos - i - 1; j++) {
+            char nombreJ[50] = "";
+            int posArtJ = BuscarArtistaPorId(artistas, validosArtistas, arreglo[j].idArtista);
+            if (posArtJ != -1) {
+                strcpy(nombreJ, artistas[posArtJ].nombre);
+            }
+            char nombreSig[50] = "";
+            int posArtSig = BuscarArtistaPorId(artistas, validosArtistas, arreglo[j+1].idArtista);
+            if (posArtSig != -1) {
+                strcpy(nombreSig, artistas[posArtSig].nombre);
+            }
+            if (strcasecmp(nombreJ, nombreSig) > 0) {
+                Presentacion temp = arreglo[j];
+                arreglo[j] = arreglo[j+1];
+                arreglo[j+1] = temp;
             }
         }
     }
