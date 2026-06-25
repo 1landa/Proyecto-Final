@@ -4,38 +4,44 @@
 #include "presentaciones.h"
 
 int CargaPresentacion(Presentacion arreglo[], int validos, int dimension) {
-    if (validos == dimension){
-        printf("Limite maximo ");
+    if (validos == dimension) {
+        printf("Limite maximo alcanzado.\n");
         return validos;
     }
+
+    int continuar;
+    printf("Desea ingresar una presentacion? 1-Si, 0-No: ");
+    scanf("%d", &continuar);
+    while (getchar() != '\n');
+
+    if (continuar == 0) {
+        return validos;
+    }
+
     FILE *archivo = fopen("presentaciones.dat", "ab");
-    if (archivo!=NULL)
-    {
+    if (archivo != NULL) {
         Presentacion nuevo;
-        printf("Ingrese el ID de la nueva presentacion: ");
-        scanf("%d",&nuevo.id);
+    printf("Ingrese el id de la presentacion");
+    scanf("%d", &nuevo.id);
         while (getchar() != '\n');
-        printf("Ingrese el ID del artista: ");
-        scanf("%d",&nuevo.idArtista);
+            printf("Ingrese el id del artista");
+            scanf("%d", &nuevo.idArtista);
         while (getchar() != '\n');
-        printf("Ingrese el ID del escenario: ");
-        scanf("%d",&nuevo.idEscenario);
+        printf("Ingrese el id del escenario");
+        scanf("%d", &nuevo.idEscenario);
         while (getchar() != '\n');
-        printf("Ingrese la horario de inicio, hora y despues minutos): ");
-        scanf("%d", &nuevo.horario.hora);
-        scanf("%d", &nuevo.horario.minutos);
+        printf("Ingrese el horario de inicio");
+        scanf("%d %d", &nuevo.horario.hora, &nuevo.horario.minutos);
         while (getchar() != '\n');
-        printf("Ingrese la duracion: ");
+        printf("Ingrese la duracion");
         scanf("%d %d", &nuevo.duracion.horas, &nuevo.duracion.minutos);
         while (getchar() != '\n');
-        
-        fwrite(&nuevo,sizeof(Presentacion),1,archivo);
+        fwrite(&nuevo, sizeof(Presentacion), 1, archivo);
         fclose(archivo);
-        printf("Presentacion agregada\n");
-        arreglo[validos]=nuevo;
-        validos++;
-        return validos;   
+        arreglo[validos] = nuevo;       
+        return CargaPresentacion(arreglo, validos + 1, dimension);
     }
+    return validos;
 }
 void MostrarPresentacion(Presentacion arreglo[], int validos) 
 {

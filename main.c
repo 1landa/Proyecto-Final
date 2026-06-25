@@ -114,14 +114,9 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
         switch(opcion)
         {
             case 1:
-                if(*validosPresentaciones < DIM)
-                {
-                    *validosPresentaciones =        CargaPresentacion(presentaciones, *validosPresentaciones, DIM);
-                }
-                else
-                {
-                    printf("Limite maximo\n");
-                }
+                case 1:
+    *validosPresentaciones = CargaPresentacion(presentaciones, *validosPresentaciones, DIM);
+    break;
                 break;
             case 2:
                 ModificarPresentacion(presentaciones, *validosPresentaciones);

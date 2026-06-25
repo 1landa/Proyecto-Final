@@ -27,31 +27,38 @@ FILE *archivo = fopen("artistas.dat", "wb");
     }
 }
 int CargaArtista(Artista arreglo[], int validos, int dimension) {
-    if (validos == dimension){
-        printf("Limite maximo ");
+    if (validos >= dimension) {
+        printf("Limite maximo\n");
         return validos;
     }
-        FILE *archivo = fopen("artistas.dat", "ab");
-    if (archivo !=NULL) {
-        Artista nuevo;
-        printf("Ingrese el ID del nuevo artista");
-        scanf("%d",&nuevo.id);
+    int continuar;
+    printf("Desea ingresar un artista? 1 si 2 no");
+    scanf("%d", &continuar);
+    while (getchar() != '\n');
+    if (continuar == 0) {
+        return validos;
+    }
+    FILE *archivo = fopen("artistas.dat", "ab");
+    if (archivo != NULL) {
+    Artista nuevo;
+    printf("Ingrese el nuevo ID");
+    scanf("%d", &nuevo.id);
         while (getchar() != '\n');
-        printf("Ingrese el nombre del nuevo artista");
+        printf("Ingrese el nombre del artista");
         fgets(nuevo.nombre, sizeof(nuevo.nombre), stdin);
         nuevo.nombre[strcspn(nuevo.nombre, "\n")] = '\0';
         printf("Ingrese el genero musical");
         fgets(nuevo.genero, sizeof(nuevo.genero), stdin);
         nuevo.genero[strcspn(nuevo.genero, "\n")] = '\0';
-        fwrite(&nuevo,sizeof(Artista),1,archivo);
+        fwrite(&nuevo, sizeof(Artista), 1, archivo);
         fclose(archivo);
-        printf("Artista nuevo agregado satisfactoriamente");
-        arreglo[validos]=nuevo;
-        validos++;
+        arreglo[validos] = nuevo;
+        return CargaArtista(arreglo, validos + 1, dimension);
+    } else {
+        printf("No sse pudo abrir el archivo\n");
+        return validos;
     }
-    return validos;
 }
-
 void OrdenarArtista(Artista arreglo[], int validos) {
     if (validos<1){
         printf("No hay artistas para ordenar");

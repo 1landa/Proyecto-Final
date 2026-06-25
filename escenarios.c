@@ -3,29 +3,31 @@
 #include <string.h>
 #include "escenarios.h"
 
-int CargaEscenario(Escenario arreglo[], int validos, int dimension) 
-{
-    if (validos == dimension)
-    {
-        printf("Limite maximo ");
+int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
+    if (validos == dimension) {
+        printf("Limite maximo\n");
+        return validos;
+    }
+    int continuar;
+    printf("Desea ingresar un escenario? 1 si 2 no");
+    scanf("%d", &continuar);
+    while (getchar() != '\n');
+    if (continuar == 0) {
         return validos;
     }
     FILE *archivo = fopen("escenarios.dat", "ab");
-    if (archivo!=NULL){
-        Escenario nuevo;
-        printf("Ingrese el ID del nuevo escenario: ");
-        scanf("%d",&nuevo.id);
-
+    if (archivo != NULL) {
+    Escenario nuevo;
+    printf("Ingrese la ID del escenario nuevo");
+    scanf("%d", &nuevo.id);
         while (getchar() != '\n');
-        printf("Ingrese el nombre del nuevo escenario: ");
+        printf("Ingrese el nombre");
         fgets(nuevo.nombre, sizeof(nuevo.nombre), stdin);
         nuevo.nombre[strcspn(nuevo.nombre, "\n")] = '\0';
-        fwrite(&nuevo,sizeof(Escenario),1,archivo);
+        fwrite(&nuevo, sizeof(Escenario), 1, archivo);
         fclose(archivo);
-        printf("El escenario ha sido agregado");
-        arreglo[validos]=nuevo; 
-        validos++;  
-        return validos;
+        arreglo[validos] = nuevo;       
+        return CargaEscenario(arreglo, validos + 1, dimension);
     }
     return validos;
 }
