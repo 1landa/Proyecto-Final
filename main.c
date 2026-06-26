@@ -75,7 +75,7 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
         printf("+=========================================+\n");
         printf("| 2 Presentaciones por Artista (ID)       |\n");
         printf("+=========================================+\n");
-        printf("| 3 Presentaciones por Escenario          |\n");
+        printf("| 3 Presentaciones por Escenario (ID)     |\n");
         printf("+=========================================+\n");
         printf("| 4 Ver Listado Completo de Artistas      |\n");
         printf("+=========================================+\n");
@@ -83,13 +83,16 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
         printf("+=========================================+\n");
         printf("| 6 Exportar Cronograma a Texto           |\n");
         printf("+=========================================+\n");
-        printf("| 7 Buscar Presentacion por Nombre        |\n");
+        printf("| 7 Buscar Presentacion por Artista       |\n");
+        printf("+=========================================+\n");
+        printf("| 8 Buscar Presentacion por Escenario     |\n");
         printf("+=========================================+\n");
         printf("| 0 Salir al Menu Principal               |\n");
         printf("+=========================================+\n");
         printf("Seleccione una opcion\n");
         scanf("%d", &opcion);
         while (getchar() != '\n'); 
+
         switch(opcion)
         {
             case 1:
@@ -130,6 +133,11 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
             case 7:
                 system("cls");
                 BuscarPresentacionPorNombreArtista(presentaciones, validosPresentaciones, artistas, validosArtistas, escenarios, validosEscenarios);
+                system("pause");
+                break;
+            case 8:
+                system("cls");
+                BuscarPresentacionPorNombreEscenario(presentaciones, validosPresentaciones, artistas, validosArtistas, escenarios, validosEscenarios);
                 system("pause");
                 break;
             case 0:

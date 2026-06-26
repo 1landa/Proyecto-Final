@@ -324,14 +324,14 @@ void BuscarPresentacionPorNombreArtista(Presentacion presentaciones[], int valid
     char nombreBuscado[50];
     int idArtistaBuscado = -1;
     int encontrado = 0;
-printf("Ingrese el nombre del artista a buscar");
+printf("Ingrese el nombre del artista a buscar\n");
     if (fgets(nombreBuscado, 50, stdin) != NULL) {
-        nombreBuscado[strcspn(nombreBuscado, "\n")] = 0;
+    nombreBuscado[strcspn(nombreBuscado, "\n")] = 0;
     }
     for (int i = 0; i < validosArt; i++) {
         if (strcmp(artistas[i].nombre, nombreBuscado) == 0) {
-            idArtistaBuscado = artistas[i].id;
-            break;
+        idArtistaBuscado = artistas[i].id;
+        break;
         }
     }
     if (idArtistaBuscado == -1) {
@@ -345,13 +345,46 @@ printf("Ingrese el nombre del artista a buscar");
             char nombreEsc[50] = "No encontrado";
             for(int j=0; j<validosEsc; j++){
                 if(escenarios[j].id == presentaciones[i].idEscenario){
-                    strcpy(nombreEsc, escenarios[j].nombre);
-                    break;
+                strcpy(nombreEsc, escenarios[j].nombre);
+                break;
                 }
             }
             printf("Escenario: %-15s | Horario: %02d:%02d\n", nombreEsc, presentaciones[i].horario.hora, presentaciones[i].horario.minutos);
         }
     }
-
     if (!encontrado) printf("El artista no tiene presentaciones registradas\n");
+}
+void BuscarPresentacionPorNombreEscenario(Presentacion presentaciones[], int validosPres, Artista artistas[], int validosArt, Escenario escenarios[], int validosEsc) {
+    char nombreBuscado[50];
+    int idEscenarioBuscado = -1;
+    int encontrado = 0;
+    printf("Ingrese el nombre del escenario a buscar\n");
+    if (fgets(nombreBuscado, 50, stdin) != NULL) {
+    nombreBuscado[strcspn(nombreBuscado, "\n")] = 0;
+    }
+    for (int i = 0; i < validosEsc; i++) {
+        if (strcmp(escenarios[i].nombre, nombreBuscado) == 0) {
+        idEscenarioBuscado = escenarios[i].id;
+        break;
+        }
+    }
+    if (idEscenarioBuscado == -1) {
+    printf("Escenario no encontrado\n");
+    return;
+    }
+    printf("Presentaciones en %s:\n", nombreBuscado);
+    for (int i = 0; i < validosPres; i++) {
+        if (presentaciones[i].idEscenario == idEscenarioBuscado) {
+            encontrado = 1;
+            char nombreArt[50] = "No encontrado";
+            for(int j=0; j<validosArt; j++){
+                if(artistas[j].id == presentaciones[i].idArtista){
+                strcpy(nombreArt, artistas[j].nombre);
+                break;
+                }
+            }
+            printf("Artista: %-15s | Horario: %02d:%02d\n", nombreArt, presentaciones[i].horario.hora, presentaciones[i].horario.minutos);
+        }
+    }
+    if (!encontrado) printf("El escenario no tiene presentaciones\n");
 }
