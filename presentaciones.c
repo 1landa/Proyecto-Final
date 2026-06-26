@@ -18,6 +18,7 @@ Horario crearHorario(int horas, int minutos){
     }
     return h;
 }
+
 Duracion crearDuracion(int horas, int minutos) {
     Duracion d;
     if(horas>=0 && minutos >=0 && minutos <60){
@@ -31,6 +32,7 @@ Duracion crearDuracion(int horas, int minutos) {
     }
     return d;
 }
+
 int LeerPresentacionesDesdeArchivo(Presentacion arreglo[], int dimension) {
     int validos = 0;
     FILE *archivo = fopen("presentaciones.dat", "rb");
@@ -55,18 +57,19 @@ void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos) {
 
 int ComprobarSolapamiento(Presentacion actuales[], int validos, Presentacion nueva) {
     for (int i = 0; i < validos; i++) {
-        if (actuales[i].idEscenario == nueva.idEscenario) {
+        if (actuales[i].idEscenario == nueva.idEscenario || actuales[i].idArtista == nueva.idArtista) {
             int inicioActual=actuales[i].horario.hora*60+actuales[i].horario.minutos;
             int finActual=inicioActual+actuales[i].duracion.horas*60+actuales[i].duracion.minutos;
             int inicioNueva=nueva.horario.hora*60+nueva.horario.minutos;
             int finNueva=inicioNueva+nueva.duracion.horas*60+nueva.duracion.minutos;
-            if ((inicioNueva<finActual) && (finNueva>inicioActual)) {
+            if ((inicioNueva < finActual) && (finNueva > inicioActual)) {
                 return 1;
             }
         }
     }
     return 0;
 }
+
 Presentacion cargarUnaPresentacion(int idAsignado) {
     Presentacion nuevo;
     nuevo.id = idAsignado;
@@ -90,6 +93,7 @@ Presentacion cargarUnaPresentacion(int idAsignado) {
     while (getchar() != '\n');
     return nuevo;
 }
+
 int CargaPresentacion(Presentacion arreglo[], int validos, int dimension) {
     if (validos == dimension) {
         printf("Limite maximo\n");
@@ -109,11 +113,11 @@ int CargaPresentacion(Presentacion arreglo[], int validos, int dimension) {
     scanf("%d", &id);
     while (getchar() != '\n');
     Presentacion nuevo = cargarUnaPresentacion(id);
-        if (ComprobarSolapamiento(arreglo, validos, nuevo)) {
-        printf("\n[ERROR] Ya hay un artista en ese horario en este escenario.\n");
-        printf("Presione enter para continuar...\n");
+    if (ComprobarSolapamiento(arreglo, validos, nuevo)) {
+        printf("Ya hay una presentacion en este horario\n");
+        printf("Presione enter para continuar\n");
         getchar();
-        return validos; 
+        return validos;
     }
     FILE *archivo = fopen("presentaciones.dat", "ab");
     if (archivo != NULL) {
@@ -153,9 +157,10 @@ void ModificarPresentacion(Presentacion arreglo[], int validos)
         scanf("%d %d", &arreglo[pos].horario.hora, &arreglo[pos].horario.minutos);
         printf("Nueva duracion\n ");
         scanf("%d %d", &arreglo[pos].duracion.horas, &arreglo[pos].duracion.minutos);
+        
         int solapado = 0;
         for (int i = 0; i < validos; i++) {
-            if (i != pos && arreglo[i].idEscenario == arreglo[pos].idEscenario) {
+            if (i != pos && (arreglo[i].idEscenario == arreglo[pos].idEscenario || arreglo[i].idArtista == arreglo[pos].idArtista)) {
                 int inicioActual = arreglo[i].horario.hora * 60 + arreglo[i].horario.minutos;
                 int finActual = inicioActual + arreglo[i].duracion.horas * 60 + arreglo[i].duracion.minutos;
                 int inicioNueva = arreglo[pos].horario.hora * 60 + arreglo[pos].horario.minutos;
@@ -167,7 +172,7 @@ void ModificarPresentacion(Presentacion arreglo[], int validos)
             }
         }
         if (solapado) {
-            printf("Se solapan los horarios\n");
+            printf("Conflicot en horario (Artista u Escenario ocupado).\n");
             arreglo[pos] = copiaOriginal;
         } else {
             CambiaArchivoPresentaciones(arreglo, validos);
@@ -179,7 +184,6 @@ void ModificarPresentacion(Presentacion arreglo[], int validos)
         printf("No existe una presentacion con ese ID\n");
     }
 }
-
 int BajaPresentacion(Presentacion arreglo[], int validos)
 {
     int id;
@@ -205,31 +209,27 @@ int BajaPresentacion(Presentacion arreglo[], int validos)
 }
 
 void OrdenaPresentacion(Presentacion arreglo[], int validos, Artista artistas[], int validosArtistas) {
+    Presentacion aux;
+    int id1, id2;
+    char nombre1[50];
+    char nombre2[50];
     for (int i = 0; i < validos - 1; i++) {
-        for (int j = 0; j < validos - i - 1; j++) {
-            char nombreJ[50] = "";
-            int posArtJ = BuscarArtistaPorId(artistas, validosArtistas, arreglo[j].idArtista);
-            if (posArtJ != -1) {
-                strcpy(nombreJ, artistas[posArtJ].nombre);
-            }
-            char nombreSig[50] = "";
-            int posArtSig = BuscarArtistaPorId(artistas, validosArtistas, arreglo[j+1].idArtista);
-            if (posArtSig != -1) {
-                strcpy(nombreSig, artistas[posArtSig].nombre);
-            }
-            if (strcasecmp(nombreJ, nombreSig) > 0) {
-                Presentacion temp = arreglo[j];
-                arreglo[j] = arreglo[j+1];
-                arreglo[j+1] = temp;
+        for (int j = i + 1; j < validos; j++) {
+            id1 = BuscarArtistaPorId(artistas, validosArtistas, arreglo[i].idArtista);
+            id2 = BuscarArtistaPorId(artistas, validosArtistas, arreglo[j].idArtista);
+            strcpy(nombre1, (id1 != -1) ? artistas[id1].nombre : "");
+            strcpy(nombre2, (id2 != -1) ? artistas[id2].nombre : "");
+            if (strcmp(nombre1, nombre2) > 0) {
+            aux = arreglo[i];
+            arreglo[i] = arreglo[j];
+            arreglo[j] = aux;
             }
         }
     }
 }
-
 void MostrarUnaPresentacion(Presentacion p, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios) {
     int posArt = BuscarArtistaPorId(artistas, validosArtistas, p.idArtista);
     int posEsc = BuscarEscenarioPorId(escenarios, validosEscenarios, p.idEscenario);
-    
     printf("+=================================+\n");
     printf("+ ID Presentacion:             | %d\n", p.id);
     printf("+=================================+\n");
@@ -250,12 +250,12 @@ void MostrarUnaPresentacion(Presentacion p, Artista artistas[], int validosArtis
     printf("+ Duracion:                   | %02d:%02d\n", p.duracion.horas, p.duracion.minutos);
     printf("+================================+\n\n");
 }
-
 void MostrarPresentacion(Presentacion arreglo[], int validos, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios) {
     if (validos == 0) {
-        printf("No hay presentaciones para mostrar\n");
+        printf("No hay presentaciones\n");
         return;
     }
+    OrdenaPresentacion(arreglo, validos, artistas, validosArtistas);
     system("cls");
     printf("Listado de presentaciones\n");
     for(int i = 0; i < validos; i++) {
@@ -264,26 +264,28 @@ void MostrarPresentacion(Presentacion arreglo[], int validos, Artista artistas[]
 }
 void MostrarPresentacionesPorArtista(Presentacion arreglo[], int validos, int idArtista, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios) {
     int encontrado = 0;
+    OrdenaPresentacion(arreglo, validos, artistas, validosArtistas);
     for(int i = 0; i < validos; i++) {
         if(arreglo[i].idArtista == idArtista) {
-            MostrarUnaPresentacion(arreglo[i], artistas, validosArtistas, escenarios, validosEscenarios);
-            encontrado = 1;
+        MostrarUnaPresentacion(arreglo[i], artistas, validosArtistas, escenarios, validosEscenarios);
+        encontrado = 1;
         }
     }
     if(!encontrado) {
-        printf("No se encontraron presentaciones para el artista con ID %d\n", idArtista);
+    printf("No se encontraron presentaciones para ese artista\n");
     }
 }
 void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int idEscenario, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios) {
     int encontrado = 0;
+    OrdenaPresentacion(arreglo, validos, artistas, validosArtistas);
     for(int i = 0; i < validos; i++) {
         if(arreglo[i].idEscenario == idEscenario) {
-            MostrarUnaPresentacion(arreglo[i], artistas, validosArtistas, escenarios, validosEscenarios);
-            encontrado = 1;
+        MostrarUnaPresentacion(arreglo[i], artistas, validosArtistas, escenarios, validosEscenarios);
+        encontrado = 1;
         }
     }
     if(!encontrado) {
-        printf("No se encontraron presentaciones para el escenario con ID %d\n", idEscenario);
+    printf("No hay artistas para ese escenario\n");
     }
 }
 void menuPresentaciones(Presentacion presentaciones[], int *validosPresentaciones, int dimension, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios) {
@@ -325,7 +327,6 @@ void menuPresentaciones(Presentacion presentaciones[], int *validosPresentacione
             case 0:
                 system("cls");
                 break;
-            
             default:
                 printf("Opcion invalida\n");
                 break;
