@@ -6,7 +6,6 @@
 #include "escenarios.h"
 #include "presentaciones.h"
 #define DIM 100
-
 void menuArtistas(Artista artistas[], int *validosArtistas, int dimension);
 void menuEscenarios(Escenario escenarios[], int *validosEscenarios, int dimension);
 void menuPresentaciones(Presentacion presentaciones[], int *validosPresentaciones, int dimension, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
@@ -19,13 +18,11 @@ int main()
     Artista artistas[DIM];
     Escenario escenarios[DIM];
     Presentacion presentaciones[DIM];
-    
     int validosArtistas = LeerArtistasDesdeArchivo(artistas, DIM);
     int validosEscenarios = LeerEscenariosDesdeArchivo(escenarios, DIM);
     int validosPresentaciones = LeerPresentacionesDesdeArchivo(presentaciones, DIM);
     int opcionusuario;
     char contrasenia[20];
-    
     do
     {
         printf("+================================+\n");
@@ -36,8 +33,7 @@ int main()
         printf("| 0 Salir                        |\n");
         printf("+================================+\n");
         printf("Seleccione una opcion\n");
-        scanf("%d", &opcionusuario);
-        
+        scanf("%d", &opcionusuario);   
         switch(opcionusuario)
         {
             case 1:
@@ -67,7 +63,6 @@ int main()
     
     return 0;
 }
-
 void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios)
 {
     int opcion;
@@ -86,11 +81,12 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
         printf("+=========================================+\n");
         printf("| 5 Ver Listado Completo de Escenarios    |\n");
         printf("+=========================================+\n");
+        printf("| 6 Exportar Cronograma a Archivo de Texto|\n");
+        printf("+=========================================+\n");
         printf("| 0 Salir al Menu Principal               |\n");
         printf("+=========================================+\n");
         printf("Seleccione una opcion\n");
         scanf("%d", &opcion);
-
         switch(opcion)
         {
             case 1:
@@ -122,9 +118,15 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
                 OrdenarEscenario(escenarios, validosEscenarios);
                 MostrarEscenario(escenarios, validosEscenarios);
                 break;
+            case 6:
+                system("cls");
+                ExportarPresentacionesATexto(presentaciones, validosPresentaciones, artistas, validosArtistas, escenarios, validosEscenarios, "Presentaciones.txt");
+                printf("Archivo generado exitosamente.\n");
+                system("pause");
+                break;
             case 0:
                 system("cls");
-                printf("Volviendo al menu principal...\n");
+                printf("Volviendo al menu principal\n");
                 break;
             default:
                 printf("Opcion invalida\n");
