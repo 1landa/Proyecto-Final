@@ -1,6 +1,6 @@
 #ifndef PRESENTACIONES_H
 #define PRESENTACIONES_H
-
+#include "artistas.h"
 typedef struct 
 {
     int hora;
@@ -23,6 +23,7 @@ typedef struct
     Horario horario;
     Duracion duracion;
 } Presentacion;
+
 Horario crearHorario(int horas, int minutos);
 Duracion crearDuracion(int horas, int minutos);
 Presentacion cargarUnaPresentacion(int idAsignado);
@@ -34,8 +35,7 @@ void MostrarPresentacionesPorArtista(Presentacion arreglo[], int validos, int id
 void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int idEscenario);
 int ComprobarSolapamiento(Presentacion actuales[], int validos, Presentacion nueva);
 void OrdenaPresentacion(Presentacion arreglo[], int validos, Artista artistas[], int validosArtistas);
-void CompruebaSolapamiento(Presentacion actuales[], int validos, Presentacion nueva);
 void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos);
 int LeerPresentacionesDesdeArchivo(Presentacion arreglo[], int dimension);
-void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos) {
+
 #endif
