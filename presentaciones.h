@@ -1,6 +1,8 @@
 #ifndef PRESENTACIONES_H
 #define PRESENTACIONES_H
 #include "artistas.h"
+#include "escenarios.h"
+
 typedef struct 
 {
     int hora;
@@ -28,14 +30,15 @@ Horario crearHorario(int horas, int minutos);
 Duracion crearDuracion(int horas, int minutos);
 Presentacion cargarUnaPresentacion(int idAsignado);
 int CargaPresentacion(Presentacion arreglo[], int validos, int dimension);
-void MostrarPresentacion(Presentacion arreglo[], int validos);
 void ModificarPresentacion(Presentacion arreglo[], int validos);
 int BajaPresentacion(Presentacion arreglo[], int validos);
-void MostrarPresentacionesPorArtista(Presentacion arreglo[], int validos, int idArtista);
-void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int idEscenario);
 int ComprobarSolapamiento(Presentacion actuales[], int validos, Presentacion nueva);
 void OrdenaPresentacion(Presentacion arreglo[], int validos, Artista artistas[], int validosArtistas);
 void CambiaArchivoPresentaciones(Presentacion arreglo[], int validos);
 int LeerPresentacionesDesdeArchivo(Presentacion arreglo[], int dimension);
-
+void MostrarUnaPresentacion(Presentacion p, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
+void MostrarPresentacion(Presentacion arreglo[], int validos, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
+void MostrarPresentacionesPorArtista(Presentacion arreglo[], int validos, int idArtista, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
+void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int idEscenario, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
+void menuPresentaciones(Presentacion presentaciones[], int *validosPresentaciones, int dimension, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
 #endif
