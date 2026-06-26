@@ -73,7 +73,7 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
         printf("+=========================================+\n");
         printf("| 1 Cronograma Completo                   |\n");
         printf("+=========================================+\n");
-        printf("| 2 Presentaciones por Artista            |\n");
+        printf("| 2 Presentaciones por Artista (ID)       |\n");
         printf("+=========================================+\n");
         printf("| 3 Presentaciones por Escenario          |\n");
         printf("+=========================================+\n");
@@ -81,12 +81,15 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
         printf("+=========================================+\n");
         printf("| 5 Ver Listado Completo de Escenarios    |\n");
         printf("+=========================================+\n");
-        printf("| 6 Exportar Cronograma a Archivo de Texto|\n");
+        printf("| 6 Exportar Cronograma a Texto           |\n");
+        printf("+=========================================+\n");
+        printf("| 7 Buscar Presentacion por Nombre        |\n");
         printf("+=========================================+\n");
         printf("| 0 Salir al Menu Principal               |\n");
         printf("+=========================================+\n");
         printf("Seleccione una opcion\n");
         scanf("%d", &opcion);
+        while (getchar() != '\n'); 
         switch(opcion)
         {
             case 1:
@@ -122,6 +125,11 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
                 system("cls");
                 ExportarPresentacionesATexto(presentaciones, validosPresentaciones, artistas, validosArtistas, escenarios, validosEscenarios, "Presentaciones.txt");
                 printf("Archivo generado\n");
+                system("pause");
+                break;
+            case 7:
+                system("cls");
+                BuscarPresentacionPorNombreArtista(presentaciones, validosPresentaciones, artistas, validosArtistas, escenarios, validosEscenarios);
                 system("pause");
                 break;
             case 0:

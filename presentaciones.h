@@ -42,4 +42,5 @@ void MostrarPresentacionesPorArtista(Presentacion arreglo[], int validos, int id
 void MostrarPresentacionesPorEscenario(Presentacion arreglo[], int validos, int idEscenario, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
 void menuPresentaciones(Presentacion presentaciones[], int *validosPresentaciones, int dimension, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
 void ExportarPresentacionesATexto(Presentacion arreglo[], int validos, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios, char nombreArchivo[]);
+void BuscarPresentacionPorNombreArtista(Presentacion presentaciones[], int validosPres, Artista artistas[], int validosArt, Escenario escenarios[], int validosEsc);
 #endif
