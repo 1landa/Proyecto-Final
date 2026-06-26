@@ -26,7 +26,7 @@ int main()
     do
     {
         printf("+================================+\n");
-        printf("| 1 Usuario General              |\n");
+        printf("| 1 Panel General                |\n");
         printf("+================================+\n");
         printf("| 2 Panel de Administrador       |\n");
         printf("+================================+\n");
@@ -69,7 +69,7 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
     do
     {
         printf("+=========================================+\n");
-        printf("|              MENU USUARIO               |\n");
+        printf("|              PANEL GENERAL              |\n");
         printf("+=========================================+\n");
         printf("| 1 Cronograma Completo                   |\n");
         printf("+=========================================+\n");
