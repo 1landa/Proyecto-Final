@@ -14,7 +14,6 @@ int LeerArtistasDesdeArchivo(Artista arreglo[], int dimension) {
     }
     return validos;
 }
-
 void CambiaArchivo(Artista arreglo[], int validos) {
     FILE *archivo = fopen("artistas.dat", "wb");
     if (archivo != NULL) {
@@ -24,14 +23,13 @@ void CambiaArchivo(Artista arreglo[], int validos) {
         printf("No se pudo abrir el archivo \n");
     }
 }
-
 int CargaArtista(Artista arreglo[], int validos, int dimension) {
     if (validos >= dimension) {
         printf("Limite maximo\n");
         return validos;
     }
     int continuar;
-    printf("Desea ingresar un artista? 1 si 2 no \n");
+    printf("Desea ingresar un artista? 1 si 0 no \n");
     scanf("%d", &continuar);
     while (getchar() != '\n');
     if (continuar != 1) {

@@ -134,7 +134,6 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
         }
     } while(opcion != 0);
 }
-
 void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artista artistas[], int *validosArtistas, Escenario escenarios[], int *validosEscenarios)
 {
     int opcion;

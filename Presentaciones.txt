@@ -1,2 +1,2 @@
-ID: 1 | Artista: The beatles | Escenario: Silos arena | Horario: 21:30 | Duracion: 01:00
+ID: 1 | Artista: The beatles 2 | Escenario: Silos arena | Horario: 21:30 | Duracion: 01:00
 ID: 2 | Artista: The strokes | Escenario: Teatro Gran Rex | Horario: 23:00 | Duracion: 01:00

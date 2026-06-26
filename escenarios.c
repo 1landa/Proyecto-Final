@@ -14,7 +14,6 @@ int LeerEscenariosDesdeArchivo(Escenario arreglo[], int dimension) {
     }
     return validos;
 }
-
 void CambiaArchivoEscenarios(Escenario arreglo[], int validos){
     FILE *archi=fopen("escenarios.dat", "wb");
     if (archi !=NULL){
@@ -24,14 +23,13 @@ void CambiaArchivoEscenarios(Escenario arreglo[], int validos){
         printf("No se pudo abrir el archivo\n");
     }
 }
-
 int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
     if (validos == dimension) {
         printf("Limite maximo\n");
         return validos;
     }
     int continuar;
-    printf("Desea ingresar un escenario? 1 si 2 no\n");
+    printf("Desea ingresar un escenario? 1 si 0 no\n");
     scanf("%d", &continuar);
     while (getchar() != '\n');
     if (continuar == 0) {
@@ -40,7 +38,7 @@ int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
     FILE *archivo = fopen("escenarios.dat", "ab");
     if (archivo != NULL) {
         Escenario nuevo;
-        printf("Ingrese la ID del escenario nuevo: \n ");
+        printf("Ingrese la ID del escenario nuevo\n ");
         scanf("%d", &nuevo.id);
         while (getchar() != '\n');
         printf("Ingrese el nombre: ");
@@ -53,7 +51,6 @@ int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
     }
     return validos;
 }
-
 void OrdenarEscenario(Escenario arreglo[], int validos) {
     for (int i = 0; i < validos - 1; i++) {
         for (int j = 0; j < validos - i - 1; j++) {
@@ -65,7 +62,6 @@ void OrdenarEscenario(Escenario arreglo[], int validos) {
         }
     }
 }
-
 void MostrarEscenario(Escenario arreglo[], int validos) {
     if (validos == 0) {
         printf("No hay escenarios para mostrar\n");
@@ -78,7 +74,6 @@ void MostrarEscenario(Escenario arreglo[], int validos) {
         printf("Nombre: %s\n", arreglo[i].nombre);
     }
 }
-
 int BuscarEscenarioPorId(Escenario arreglo[], int validos, int id) {
     for (int i = 0; i < validos; i++) {
         if (arreglo[i].id == id) {
@@ -87,12 +82,11 @@ int BuscarEscenarioPorId(Escenario arreglo[], int validos, int id) {
     }
     return -1;
 }
-
 void ModificarEscenario(Escenario arreglo[], int validos) {
     int id;
     int pos;
     system("cls");
-    printf("Ingrese el ID del escenario a modificar: \n ");
+    printf("Ingrese el ID del escenario a modificar\n ");
     scanf("%d", &id);
     while (getchar() != '\n');
     pos = BuscarEscenarioPorId(arreglo, validos, id);
@@ -105,10 +99,9 @@ void ModificarEscenario(Escenario arreglo[], int validos) {
         system("cls");
         printf("El escenario modificado\n");
     } else {
-        printf("Con ese ID no existe un escenario\n");
+        printf("No existe un id con ese escenario\n");
     }
 }
-
 int BajaEscenario(Escenario arreglo[], int validos) {
     int id;
     int pos;
@@ -125,7 +118,7 @@ int BajaEscenario(Escenario arreglo[], int validos) {
         system("cls");
         printf("El escenario ha sido eliminado \n");
     } else {
-        printf("Con ese ID no existe un escenario\n");
+        printf("ID no existe un escenario con ese id\n");
     }
     return validos;
 }
