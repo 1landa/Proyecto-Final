@@ -34,7 +34,7 @@ int CargaArtista(Artista arreglo[], int validos, int dimension) {
     printf("Desea ingresar un artista? 1 si 2 no \n");
     scanf("%d", &continuar);
     while (getchar() != '\n');
-    if (continuar == 0) {
+    if (continuar != 1) {
         return validos;
     }
     FILE *archivo = fopen("artistas.dat", "ab");

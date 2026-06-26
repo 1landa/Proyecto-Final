@@ -14,5 +14,4 @@ void ModificarEscenario(Escenario arreglo[], int validos);
 int BajaEscenario(Escenario arreglo[], int validos);
 int LeerEscenariosDesdeArchivo(Escenario arreglo[], int dimension);
 void CambiaArchivoEscenarios(Escenario arreglo[], int validos);
-void CambiaArchivoEscenarios(Escenario arreglo[], int validos);
 #endif

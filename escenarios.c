@@ -14,13 +14,14 @@ int LeerEscenariosDesdeArchivo(Escenario arreglo[], int dimension) {
     }
     return validos;
 }
-void CambiaArchivoEscenarios(Escenario arreglo[], int validos) {
-    FILE *archi = fopen("escenarios.dat", "wb");
-    if (archi != NULL) {
-        fwrite(arreglo, sizeof(Escenario), validos, archi);
+
+void CambiaArchivoEscenarios(Escenario arreglo[], int validos){
+    FILE *archi=fopen("escenarios.dat", "wb");
+    if (archi !=NULL){
+        fwrite(arreglo,sizeof(Escenario),validos,archi);
         fclose(archi);
-    } else {
-        printf("Error al actualizar el archivo\n");
+    }else{
+        printf("No se pudo abrir el archivo\n");
     }
 }
 
@@ -52,6 +53,7 @@ int CargaEscenario(Escenario arreglo[], int validos, int dimension) {
     }
     return validos;
 }
+
 void OrdenarEscenario(Escenario arreglo[], int validos) {
     for (int i = 0; i < validos - 1; i++) {
         for (int j = 0; j < validos - i - 1; j++) {
@@ -63,6 +65,7 @@ void OrdenarEscenario(Escenario arreglo[], int validos) {
         }
     }
 }
+
 void MostrarEscenario(Escenario arreglo[], int validos) {
     if (validos == 0) {
         printf("No hay escenarios para mostrar\n");
@@ -84,6 +87,7 @@ int BuscarEscenarioPorId(Escenario arreglo[], int validos, int id) {
     }
     return -1;
 }
+
 void ModificarEscenario(Escenario arreglo[], int validos) {
     int id;
     int pos;
@@ -100,8 +104,6 @@ void ModificarEscenario(Escenario arreglo[], int validos) {
         CambiaArchivoEscenarios(arreglo, validos);
         system("cls");
         printf("El escenario modificado\n");
-        CambiaArchivoEscenarios(escenarios, validos);
-        
     } else {
         printf("Con ese ID no existe un escenario\n");
     }
@@ -125,15 +127,46 @@ int BajaEscenario(Escenario arreglo[], int validos) {
     } else {
         printf("Con ese ID no existe un escenario\n");
     }
-    CambiaArchivoEscenarios(escenarios, validos);
     return validos;
 }
-void CambiaArchivoEscenarios(Escenario arreglo[], int validos){
-    FILE *archi=fopen("escenarios.dat", "wb");
-    if (archi !=NULL){
-        fwrite(arreglo,sizeof(Escenario),validos,archi);
-        fclose(archi);
-    }else{
-        printf("No se pudo abrir el archivo");
-    }
+
+void menuEscenarios(Escenario escenarios[], int *validosEscenarios, int dimension) {
+    int opcion;
+    do {
+        printf("+==============================+\n");
+        printf("+ 1-Alta                       |\n");
+        printf("+==============================+\n");
+        printf("+ 2-Modificar                  |\n");
+        printf("+==============================+\n");
+        printf("+ 3-Baja                       |\n");
+        printf("+==============================+\n");
+        printf("+ 4-Mostrar                    |\n");
+        printf("+==============================+\n");
+        printf("+ 0-Volver                     |\n");
+        printf("+==============================+\n");
+        scanf("%d", &opcion);
+        switch (opcion) {
+            case 1:
+                system("cls");
+                *validosEscenarios = CargaEscenario(escenarios, *validosEscenarios, dimension);
+                break;
+            case 2:
+                system("cls");
+                ModificarEscenario(escenarios, *validosEscenarios);
+                break;
+            case 3:
+                system("cls");
+                *validosEscenarios = BajaEscenario(escenarios, *validosEscenarios);
+                break;
+            case 4:
+                system("cls");
+                MostrarEscenario(escenarios, *validosEscenarios);
+                break;
+            case 0:
+                system("cls");
+                break;
+            default:
+                break;
+        }
+    } while (opcion != 0);
 }

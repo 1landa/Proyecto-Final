@@ -6,6 +6,12 @@
 #include "escenarios.h"
 #include "presentaciones.h"
 #define DIM 100
+
+void menuArtistas(Artista artistas[], int *validosArtistas, int dimension);
+void menuEscenarios(Escenario escenarios[], int *validosEscenarios, int dimension);
+void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
+void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artista artistas[], int *validosArtistas, Escenario escenarios[], int *validosEscenarios);
+
 int main()
 {
     setlocale(LC_ALL, "");
@@ -13,9 +19,6 @@ int main()
     Escenario escenarios[DIM];
     Presentacion presentaciones[DIM];
     
-    void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios);
-    
-    void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artista artistas[], int *validosArtistas, Escenario escenarios[], int *validosEscenarios);
     int validosArtistas = LeerArtistasDesdeArchivo(artistas, DIM);
     int validosEscenarios = LeerEscenariosDesdeArchivo(escenarios, DIM);
     int validosPresentaciones = LeerPresentacionesDesdeArchivo(presentaciones, DIM);
@@ -35,22 +38,22 @@ int main()
         switch(opcionusuario)
         {
             case 1:
-            system("cls");
+                system("cls");
                 menuusuarionormal(presentaciones, validosPresentaciones, artistas, validosArtistas, escenarios, validosEscenarios);
                 break;
             case 2:
-            system("cls");
-            printf("Ingrese la contrasenia de admin\n");
-            scanf("%s", contrasenia);
-            if(strcmp(contrasenia, "admin") == 0){
-            system("cls");
-                menuadmin(presentaciones, &validosPresentaciones, artistas, &validosArtistas, escenarios, &validosEscenarios);
-            }else {
+                system("cls");
+                printf("Ingrese la contrasenia de admin\n");
+                scanf("%s", contrasenia);
+                if(strcmp(contrasenia, "admin") == 0){
+                    system("cls");
+                    menuadmin(presentaciones, &validosPresentaciones, artistas, &validosArtistas, escenarios, &validosEscenarios);
+                }else {
                     printf("Contrasenia incorrecta\n");
                 }
                 break;
             case 0:
-            system("cls");
+                system("cls");
                 printf("Saliendo\n");
                 break;
             default:
@@ -60,6 +63,7 @@ int main()
     } while(opcionusuario != 0);
     return 0;
 }
+
 void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios)
 {
     int opcion;
@@ -124,16 +128,21 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
         }
     } while(opcion != 0);
 }
+
 void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artista artistas[], int *validosArtistas, Escenario escenarios[], int *validosEscenarios){
     int opcion;
     do
     {
         printf("+=========================================+\n");
-        printf("| 1 Agregar Presentacion                  |\n");
+        printf("| 1 - Gestionar Artistas                  |\n");
         printf("+=========================================+\n");
-        printf("| 2 Modificar Presentacion                |\n");
+        printf("| 2 - Gestionar Escenarios                |\n");
         printf("+=========================================+\n");
-        printf("| 3 Eliminar Presentacion                 |\n");
+        printf("| 3 Agregar Presentacion                  |\n");
+        printf("+=========================================+\n");
+        printf("| 4 Modificar Presentacion                |\n");
+        printf("+=========================================+\n");
+        printf("| 5 Eliminar Presentacion                 |\n");
         printf("+=========================================+\n");
         printf("| 0 Menu Principal                        |\n");
         printf("+=========================================+\n");
@@ -143,19 +152,26 @@ void menuadmin(Presentacion presentaciones[], int *validosPresentaciones, Artist
         {
             case 1:
                 system("cls");
-                *validosPresentaciones = CargaPresentacion(presentaciones, *validosPresentaciones, DIM);
-
+                menuArtistas(artistas, validosArtistas, DIM);
                 break;
             case 2:
-            system("cls");
-                ModificarPresentacion(presentaciones, *validosPresentaciones);
+                system("cls");
+                menuEscenarios(escenarios, validosEscenarios, DIM);
                 break;
             case 3:
-            system("cls");
+                system("cls");
+                *validosPresentaciones = CargaPresentacion(presentaciones, *validosPresentaciones, DIM);
+                break;
+            case 4:
+                system("cls");
+                ModificarPresentacion(presentaciones, *validosPresentaciones);
+                break;
+            case 5:
+                system("cls");
                 *validosPresentaciones = BajaPresentacion(presentaciones, *validosPresentaciones);
                 break;
             case 0:
-            system("cls");
+                system("cls");
                 printf("Volviendo al menu principal\n");
                 break;
             default:
