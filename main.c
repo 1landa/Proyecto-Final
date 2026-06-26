@@ -121,7 +121,7 @@ void menuusuarionormal(Presentacion presentaciones[], int validosPresentaciones,
             case 6:
                 system("cls");
                 ExportarPresentacionesATexto(presentaciones, validosPresentaciones, artistas, validosArtistas, escenarios, validosEscenarios, "Presentaciones.txt");
-                printf("Archivo generado exitosamente.\n");
+                printf("Archivo generado\n");
                 system("pause");
                 break;
             case 0:

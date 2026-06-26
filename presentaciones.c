@@ -224,8 +224,27 @@ void MostrarUnaPresentacion(Presentacion p, Artista artistas[], int validosArtis
            p.id, nombreArt, nombreEsc, p.horario.hora, p.horario.minutos, p.duracion.horas, p.duracion.minutos);
 }
 void MostrarPresentacion(Presentacion arreglo[], int validos, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios) {
-    for(int i = 0; i < validos; i++) {
-        MostrarUnaPresentacion(arreglo[i], artistas, validosArtistas, escenarios, validosEscenarios);
+    printf("%-5s | %-12s | %-20s | %-20s\n", "ID", "ID Artista", "Artista", "Escenario");
+    printf("--------------------------------------------------------------------------\n");
+
+    for (int i = 0; i < validos; i++) {
+        char nombreArtista[50] = "No encontrado";
+        for (int j = 0; j < validosArtistas; j++) {
+            if (artistas[j].id == arreglo[i].idArtista) {
+                strcpy(nombreArtista, artistas[j].nombre);
+                break;
+            }
+        }
+
+        char nombreEscenario[50] = "No encontrado";
+        for (int k = 0; k < validosEscenarios; k++) {
+            if (escenarios[k].id == arreglo[i].idEscenario) {
+                strcpy(nombreEscenario, escenarios[k].nombre);
+                break;
+            }
+        }
+
+        printf("%-5d | %-12d | %-20s | %-20s\n", arreglo[i].id, arreglo[i].idArtista, nombreArtista, nombreEscenario);
     }
 }
 void MostrarPresentacionesPorArtista(Presentacion arreglo[], int validos, int idArtista, Artista artistas[], int validosArtistas, Escenario escenarios[], int validosEscenarios) {
@@ -299,7 +318,7 @@ void menuPresentaciones(Presentacion presentaciones[], int *validosPresentacione
             case 5:
                 system("cls");
                 ExportarPresentacionesATexto(presentaciones, *validosPresentaciones, artistas, validosArtistas, escenarios, validosEscenarios, "Presentaciones.txt");
-                printf("Archivo generado.\n");
+                printf("Archivo generado\n");
                 system("pause");
                 break;
             case 0:
